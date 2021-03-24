@@ -1,0 +1,262 @@
+/*Font-h1*/
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/*h1*/
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Kanit&display=swap');
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #dddd;
+    font-family: 'Kanit', sans-serif;
+    line-height: 1.5em;
+    padding: 10px;
+}
+
+
+/*tiêu đề fieldset legend*/
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&display=swap');
+.main {
+    margin-top: 15px;
+    .hinh_thuc_bao_cao {
+        border: 1px solid;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+        }
+    }
+    .su_co {
+        border: 1px solid;
+        // display: inline-block;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+        }
+    }
+    .thong_tin_nguoi_benh {
+        border: 1px solid;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+        }
+    }
+    .de_xuat_giai_phap {
+        border: 1px solid;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+        }
+    }
+    .thong_tin_cho_bac_si {
+        border: 1px solid;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+            ul {
+                margin-left: 20px;
+                li {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+    .thong_tin_bao_cao {
+        border: 1px solid;
+        fieldset {
+            padding: 15px;
+            legend {
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px;
+                text-transform: uppercase;
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+            }
+            ul {
+                margin-left: 20px;
+                li {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+    .submit {
+        margin-left: 45%;
+    }
+}

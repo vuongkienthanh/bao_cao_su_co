@@ -1,0 +1,6 @@
+aiofiles 
+email-validator
+fastapi
+Jinja2
+python-multipart
+uvicorn
