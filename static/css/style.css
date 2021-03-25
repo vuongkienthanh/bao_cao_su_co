@@ -176,28 +176,6 @@ h1 {
         text-transform: uppercase;
         text-align: center;
         font-family: 'Noto Sans', sans-serif; }
-  .main .de_xuat_giai_phap {
-    border: 1px solid; }
-    .main .de_xuat_giai_phap fieldset {
-      padding: 15px; }
-      .main .de_xuat_giai_phap fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-  .main .xu_ly_ban_dau {
-    border: 1px solid; }
-    .main .xu_ly_ban_dau fieldset {
-      padding: 15px; }
-      .main .xu_ly_ban_dau fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
   .main .thong_tin_cho_bac_si {
     border: 1px solid; }
     .main .thong_tin_cho_bac_si fieldset {

@@ -10,13 +10,13 @@
                     <div class="hinh_thuc_bao_cao">
                         <fieldset>
                             <legend>Hình Thức Báo Cáo</legend>
-                            <label for="tu_nguyen">Tự nguyện</label>
                             <input type="radio" checked name="hinh_thuc" id="tu_nguyen" value="Tự nguyện">
-                            <label for="bat_buoc">Bắt buộc</label>
+                            <label for="tu_nguyen">Tự nguyện</label><br>
                             <input type="radio" name="hinh_thuc" id="bat_buoc" value="Bắt buộc">
+                            <label for="bat_buoc">Bắt buộc</label>
                             <br><br>
                             <label for="ngay_bao_cao">Ngày báo cáo</label>
-                            <input type="date" id="ngay_bao_cao" name="ngay_bao_cao" placeholder="yyyy-mm-dd" pattern="\d{4}-\d{1,2}-\d{1,2}">
+                            <input type="date" id="ngay_bao_cao" name="ngay_bao_cao" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{1,2}-\d{1,2}">
                             <br><br>
                             <label for="don_vi_bao_cao">Đơn vị báo cáo</label>
                             <select name="don_vi_bao_cao" id="don_vi_bao_cao">
@@ -48,10 +48,10 @@
                             <input type="text" class="form-control"  name="ho_ten_nguoi_benh" id="ho_ten_nguoi_benh">
                             <br>
                             <label for="so_benh_an">Số bệnh án </label>
-                            <input type="text" class="form-control"  name="so_benh_an" id="so_benh_an" placeholder="12345678">
+                            <input type="text" class="form-control"  name="so_benh_an" id="so_benh_an" placeholder="19002000">
                             <br>
                             <label for="ngay_sinh">Ngày sinh </label>
-                            <input type="date" name="ngay_sinh"  id="ngay_sinh" placeholder="yyyy-mm-dd" pattern="\d{4}-\d{1,2}-\d{1,2}">
+                            <input type="date" name="ngay_sinh"  id="ngay_sinh" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{1,2}-\d{1,2}">
                             <br><br>
                             <label>Giới Tính</label>
                             <input type="radio" checked name="gioi_tinh" value="Nam" id="nam">
@@ -126,20 +126,16 @@
                             <input class="form-control" type="text" name="vi_tri_cu_the" id="vi_tri_cu_the" placeholder="ví dụ: nhà vệ sinh, bãi đậu xe">
                             <br><br>
                             <label for="thoi_gian_xay_ra">Thời gian xảy ra</label>
-                            <input type="datetime-local" name="thoi_gian_xay_ra" id="thoi_gian_xay_ra" placeholder="yyyy-mm-dd hh:mm">
+                            <input type="datetime-local" name="thoi_gian_xay_ra" id="thoi_gian_xay_ra" placeholder="YYYY-MM-DD hh:mm">
                         </fieldset>
                         <fieldset>
                             <legend>Mô tả sự cố ngắn gọn</legend>
                             <textarea name="mo_ta" id="mo_ta"></textarea>
                         </fieldset>
-                    </div>
-                    <div class="de_xuat_giai_phap">
                         <fieldset>
                             <legend>Đề xuất giải pháp</legend>
                             <textarea name="de_xuat_giai_phap" id="de_xuat_giai_phap"></textarea>
                         </fieldset>
-                    </div>
-                    <div class="xu_ly_ban_dau">
                         <fieldset>
                             <legend>Điều trị/xử lý ban đầu</legend>
                             <textarea name="xu_ly_ban_dau" id="xu_ly_ban_dau"></textarea>
@@ -257,7 +253,7 @@
                             <input class="form-control" type="tel" id="so_dien_thoai_nguoi_bao_cao" name="so_dien_thoai_nguoi_bao_cao" pattern="^\d*$">
                             <br>
                             <label for="email_nguoi_bao_cao">Email</label>
-                            <input type="email" class="form-control" name="email_nguoi_bao_cao" id="email_nguoi_bao_cao" >
+                            <input type="email" class="form-control" name="email_nguoi_bao_cao" id="email_nguoi_bao_cao" placeholder="abc@bvndtp.org.vn">
                             <br>
                             <label for="chuc_danh_nguoi_bao_cao">Chức danh người báo cáo</label>
                             <select name="chuc_danh_nguoi_bao_cao" id="chuc_danh_nguoi_bao_cao">
@@ -269,7 +265,7 @@
                             </select>
                             <br><br>
                             <label for="chuc_danh_khac">Chức danh khác</label>
-                            <input type="text" class="form-control" name="chuc_danh_khac" id="chuc_danh_khac">
+                            <input type="text" class="form-control" name="chuc_danh_khac" id="chuc_danh_khac" placeholder="Nếu mục trên chọn khác thì điền vào đây">
                             <br>
                             <label for="nguoi_chung_kien_1">Người chứng kiến 1</label>
                             <input type="text" class="form-control" name="nguoi_chung_kien_1" id="nguoi_chung_kien_1">
