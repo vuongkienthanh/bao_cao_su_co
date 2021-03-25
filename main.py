@@ -1,4 +1,5 @@
 from schema import *
+from create_report import create_pdf
 import sql
 import io
 import datetime as dt
@@ -28,13 +29,12 @@ async def root(request: Request):
 @app.get("/initdb", summary="Tạo mới database (có backup db cũ)")
 async def initdb():
     DIR = os.path.dirname(os.path.abspath(__name__))
-    f = os.path.join(DIR, sql.dbname)
+    f = os.path.join(DIR, sql.db_name)
     if os.path.exists(f):
         os.rename(
             f,
             'bcsc {}.dbbk'.format(dt.datetime.now().strftime('%Y%m%d_%H%m'))
         )
-        os.remove(f)
     sql.create_db()
     return {'Initialize database': 1}
 
@@ -112,7 +112,6 @@ async def get_csv():
     writer = csv.writer(stream)
     writer.writerow(headers)
     writer.writerows(data)
-
     response = StreamingResponse(iter([stream.getvalue()]), media_type="text/csv")
     response.headers["Content-Disposition"] = "attachment; filename=export.csv"
     return response
@@ -130,3 +129,14 @@ async def read_report(request: Request, id: int):
 async def delete_report(id: int):
     sql.delete_report(id)
     return {'deleted_report_id': id}
+
+
+@app.get("/get_pdf/{id}", summary="Tải đơn báo cáo theo mã id")
+async def get_pdf(id: int):
+    stream = io.BytesIO()
+    data = sql.read_report(id)
+    create_pdf(stream, **data)
+    stream.seek(0)
+    response = StreamingResponse(stream, media_type="text/pdf")
+    response.headers["Content-Disposition"] = f"attachment; filename=export{id}.pdf"
+    return response
