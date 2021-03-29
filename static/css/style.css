@@ -1,11 +1,7 @@
 @charset "UTF-8";
-/*Font-h1*/
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Kanit&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
 html,
 body,
 div,
@@ -78,9 +74,7 @@ footer,
 header,
 hgroup,
 menu,
-nav,
 output,
-ruby,
 section,
 summary,
 time,
@@ -90,123 +84,68 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
+  font-family: "Bitter";
   vertical-align: baseline; }
 
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block; }
-
-body {
-  line-height: 1; }
-
-ol,
-ul {
+ol, ul {
   list-style: none; }
 
-blockquote,
-q {
-  quotes: none; }
+select:invalid {
+  color: gray; }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-/*h1*/
+nav {
+  background-color: #0D60AA;
+}
 h1 {
   text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  background-color: #dddd;
+  font-size: 2rem !important;
   font-family: 'Kanit', sans-serif;
-  line-height: 1.5em;
-  padding: 10px; }
+  color: #FFFFFF; }
 
-/*tiêu đề fieldset legend*/
-.main {
-  margin-top: 15px; }
-  .main .hinh_thuc_bao_cao {
-    border: 1px solid; }
-    .main .hinh_thuc_bao_cao fieldset {
-      padding: 15px; }
-      .main .hinh_thuc_bao_cao fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-  .main .su_co {
-    border: 1px solid; }
-    .main .su_co fieldset {
-      padding: 15px; }
-      .main .su_co fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-  .main .thong_tin_nguoi_benh {
-    border: 1px solid; }
-    .main .thong_tin_nguoi_benh fieldset {
-      padding: 15px; }
-      .main .thong_tin_nguoi_benh fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-  .main .thong_tin_cho_bac_si {
-    border: 1px solid; }
-    .main .thong_tin_cho_bac_si fieldset {
-      padding: 15px; }
-      .main .thong_tin_cho_bac_si fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-      .main .thong_tin_cho_bac_si fieldset ul {
-        margin-left: 20px; }
-        .main .thong_tin_cho_bac_si fieldset ul li {
-          margin-bottom: 5px; }
-  .main .thong_tin_bao_cao {
-    border: 1px solid; }
-    .main .thong_tin_bao_cao fieldset {
-      padding: 15px; }
-      .main .thong_tin_bao_cao fieldset legend {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        text-transform: uppercase;
-        text-align: center;
-        font-family: 'Noto Sans', sans-serif; }
-      .main .thong_tin_bao_cao fieldset ul {
-        margin-left: 20px; }
-        .main .thong_tin_bao_cao fieldset ul li {
-          margin-bottom: 5px; }
-  .main .submit {
-    margin-left: 45%; }
+@media only screen and (max-width: 350px) {
+  /* For mobile phones: */
+  h1 {
+    font-size: 1.5rem !important;
+  }
+}
 
-/*# sourceMappingURL=style.css.map */
+main {
+  background-color:silver;
+  background-image:
+  radial-gradient(circle at 100% 150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+  radial-gradient(circle at 0    150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+  radial-gradient(circle at 50%  100%, white 10%, silver 10%, silver 23%, white 23%, white 30%, silver 30%, silver 43%, white 43%, white 50%, silver 50%, silver 63%, white 63%, white 71%, transparent 71%, transparent),
+  radial-gradient(circle at 100% 50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent),
+  radial-gradient(circle at 0    50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent);
+  background-size: 100px 50px;}
+
+form {
+  border: 2px solid #011329;
+  background-color: #F0FBF3;
+  border-radius: 10px;
+}
+main fieldset {
+  padding: 0.4rem;
+  }
+main fieldset legend {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif; }
+  
+
+  
+main .submit {
+  margin-left: 45%; }
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group-vertical {
+  display: flex;
+  justify-content: center;
+}

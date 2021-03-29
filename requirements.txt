@@ -1,6 +1,10 @@
-aiofiles 
-email-validator
-fastapi
-Jinja2
-python-multipart
-uvicorn
+aiofiles==0.6.0
+email-validator==1.1.2
+fastapi==0.63.0
+Jinja2==2.11.3
+pydantic==1.8.1
+python-multipart==0.0.5
+uvicorn==0.13.4
+reportlab==3.5.66
+passlib==1.7.4
+bcrypt==3.2.0

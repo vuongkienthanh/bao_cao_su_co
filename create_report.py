@@ -3,10 +3,11 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import textwrap
+import os
 
-pdfmetrics.registerFont(TTFont('Bitter', 'Bitter-Regular.ttf'))
-pdfmetrics.registerFont(TTFont('BitterBold', 'Bitter-Bold.ttf'))
-pdfmetrics.registerFont(TTFont('BitterItalic', 'Bitter-Italic.ttf'))
+pdfmetrics.registerFont(TTFont('Bitter', os.path.join('fonts', 'Bitter-Regular.ttf')))
+pdfmetrics.registerFont(TTFont('BitterBold', os.path.join('fonts', 'Bitter-Bold.ttf')))
+pdfmetrics.registerFont(TTFont('BitterItalic', os.path.join('fonts', 'Bitter-Italic.ttf')))
 fontname = 'Bitter'
 fontsize = 12
 width, height = A4
@@ -45,7 +46,7 @@ def d_upperright(c, *arg):
         textobj.setFont("BitterItalic", fontsize)
         textobj.textOut(n)
         textobj.setFont("Bitter", fontsize)
-        textobj.textLine(str(arg[i+1]))
+        textobj.textLine(str(arg[i + 1]))
     textobj.setFont("BitterItalic", fontsize)
     textobj.textLine('Đơn vị báo cáo: ')
     textobj.setFont("Bitter", fontsize)
@@ -207,10 +208,10 @@ def create_pdf(stream, **kwarg):
               kwarg["thong_bao_cho_nguoi_benh"],
               kwarg["phan_loai_ban_dau"],
               kwarg["danh_gia_ban_dau"])
-    d_reporter(c,rows,
+    d_reporter(c, rows,
                kwarg["ho_ten_nguoi_bao_cao"],
                kwarg["so_dien_thoai_nguoi_bao_cao"],
                kwarg["email_nguoi_bao_cao"],
                kwarg["chuc_danh_nguoi_bao_cao"])
-    d_obs(c, rows,kwarg["nguoi_chung_kien_1"], kwarg["nguoi_chung_kien_2"])
+    d_obs(c, rows, kwarg["nguoi_chung_kien_1"], kwarg["nguoi_chung_kien_2"])
     c.save()
