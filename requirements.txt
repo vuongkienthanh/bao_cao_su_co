@@ -8,3 +8,4 @@ uvicorn==0.13.4
 reportlab==3.5.66
 passlib==1.7.4
 bcrypt==3.2.0
+pyheif @ git+https://github.com/david-poirier-csn/pyheif.git@38468c5963f7c7e40f482c71d9662f9c7412895f
