@@ -1,5 +1,7 @@
 FROM python:3.8.8-buster
 WORKDIR /app
+RUN apt install libffi libheif-dev libde265-dev ffmpeg
+RUN pip install git+https://github.com/david-poirier-csn/pyheif.git
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 COPY . .

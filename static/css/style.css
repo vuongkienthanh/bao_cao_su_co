@@ -119,6 +119,8 @@ main {
   radial-gradient(circle at 0    50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent);
   background-size: 100px 50px;}
 
+
+
 form {
   border: 2px solid #011329;
   background-color: #F0FBF3;

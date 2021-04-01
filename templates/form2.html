@@ -1,0 +1,290 @@
+<form class="col-md-8 col-lg-6 col-11" action="./create_report" method='post' id="tabcontent2" style="display:none">
+<fieldset>
+  <legend class="mb-3 mt-3">Thông tin chung</legend>
+  <div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="hinh_thuc">Hình thức báo cáo</label>
+      <div class="col btn-group m-0 p-0" role="group">
+        <input type="radio" class="btn-check" name="hinh_thuc" id="tu_nguyen" value="Tự nguyện" required>
+        <label class="btn btn-outline-dark" for="tu_nguyen">Tự nguyện</label>
+        <input type="radio" class="btn-check" name="hinh_thuc" id="bat_buoc" value="Bắt buộc">
+        <label class="btn btn-outline-dark" for="bat_buoc">Bắt buộc</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="ngay_bao_cao">Ngày báo cáo</label>
+      <input class="col form-control" type="date" id="ngay_bao_cao" name="ngay_bao_cao" placeholder="YYYY-MM-DD" required>
+    </div>
+  <div class="row mb-3 align-items-center">
+    <label class="col-md-4 col-12" for="don_vi_bao_cao">Đơn vị báo cáo</label>
+    <select class="col form-select" name="don_vi_bao_cao" id="don_vi_bao_cao" required>
+        <option value="" disabled selected hidden>Chọn...</option>
+        <option value="Ngoại thần kinh">Ngoại thần kinh</option>
+        <option value="Nội tổng quát">Nội tổng quát</option>
+        <option value="Dược">Dược</option>
+        <option value="Xét nghiệm">Xét nghiệm</option>
+        <option value="Quản lý chất lượng">Quản lý chất lượng</option>
+        <option value="Tài chính kế toán">Tài chính kế toán</option>
+        <option value="Kế hoạch tổng hợp">Kế hoạch tổng hợp</option>
+        <option value="Tổ chức cán bộ">Tổ chức cán bộ</option>
+        <option value="Ngoại tổng hợp">Ngoại tổng hợp</option>
+        <option value="Phẫu thuật GMHS">Phẫu thuật GMHS</option>
+        <option value="Ngoại lồng ngực">Ngoại lồng ngực</option>
+        <option value="Sơ sinh">Sơ sinh</option>
+        <option value="Tai mũi họng">Tai mũi họng</option>
+        <option value="Tim mạch">Tim mạch</option>
+        <option value="Hô hấp">Hô hấp</option>
+        <option value="Tiêu hoá">Tiêu hoá</option>
+        <option value="Thận nội tiết">Thận nội tiết</option>
+        <option value="Huyết học lâm sàng">Huyết học lâm sàng</option>
+    </select>
+  </div>
+</fieldset>
+<fieldset>
+  <legend class="mb-3">Thông Tin Người Bệnh</legend>
+  <div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="ho_ten_nguoi_benh">Họ và tên</label>
+      <input class ="col form-control" type="text"  name="ho_ten_nguoi_benh" id="ho_ten_nguoi_benh" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="so_benh_an">Số bệnh án</label>
+      <input class="col form-control" type="text" name="so_benh_an" id="so_benh_an" placeholder="19002000" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="ngay_sinh">Ngày sinh</label>
+      <input class="col form-control" type="date" name="ngay_sinh"  id="ngay_sinh" placeholder="YYYY-MM-DD" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" >Giới Tính</label>
+      <div class="col btn-group m-0 p-0" role="group">
+        <input type="radio" class="btn-check" name="gioi_tinh" id="nam" value="Nam" required>
+        <label class="btn btn-outline-dark" for="nam">Nam</label>
+        <input type="radio" class="btn-check" name="gioi_tinh" id="nu" value="Nữ">
+        <label class="btn btn-outline-dark" for="nu">Nữ</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="khoa_phong">Khoa phòng</label>
+      <select class="col form-select" name="khoa_phong" id="khoa_phong" required>
+          <option value="" disabled selected hidden>Chọn...</option>
+          <option value="Ngoại thần kinh">Ngoại thần kinh</option>
+          <option value="Nội tổng quát">Nội tổng quát</option>
+          <option value="Dược">Dược</option>
+          <option value="Xét nghiệm">Xét nghiệm</option>
+          <option value="Quản lý chất lượng">Quản lý chất lượng</option>
+          <option value="Tài chính kế toán">Tài chính kế toán</option>
+          <option value="Kế hoạch tổng hợp">Kế hoạch tổng hợp</option>
+          <option value="Tổ chức cán bộ">Tổ chức cán bộ</option>
+          <option value="Ngoại tổng hợp">Ngoại tổng hợp</option>
+          <option value="Phẫu thuật GMHS">Phẫu thuật GMHS</option>
+          <option value="Ngoại lồng ngực">Ngoại lồng ngực</option>
+          <option value="Sơ sinh">Sơ sinh</option>
+          <option value="Tai mũi họng">Tai mũi họng</option>
+          <option value="Tim mạch">Tim mạch</option>
+          <option value="Hô hấp">Hô hấp</option>
+          <option value="Tiêu hoá">Tiêu hoá</option>
+          <option value="Thận nội tiết">Thận nội tiết</option>
+          <option value="Huyết học lâm sàng">Huyết học lâm sàng</option>
+      </select>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend class="mb-3">Thông Tin Sự Cố</legend>
+  <div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+      <label class="col">Đối Tượng Xảy Ra Sự Cố</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group-vertical mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="doi_tuong" value="Người bệnh" id="nguoi_benh" required>
+        <label class="btn btn-outline-dark" for="nguoi_benh">Người bệnh</label>
+        <input type="radio" class="btn-check" name="doi_tuong" value="Người nhà hoặc khách đến thăm" id="nguoi_nha_den_tham">
+        <label class="btn btn-outline-dark" for="nguoi_nha_den_tham">Người nhà/khách đến thăm</label>
+        <input type="radio" class="btn-check" name="doi_tuong" value="Nhân viên y tế" id="nhan_vien_y_te">
+        <label class="btn btn-outline-dark" for="nhan_vien_y_te">Nhân viên y tế</label>
+        <input type="radio" class="btn-check" name="doi_tuong" value="Trang thiết bị hoặc cơ sở hạ tầng" id="trang_thiet_bi">
+        <label class="btn btn-outline-dark" for="trang_thiet_bi">Trang thiết bị/cơ sở hạ tầng</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="vi_tri_xay_ra">Nơi xảy ra sự cố </label>
+      <select class="col form-select" name="vi_tri_xay_ra" id="vi_tri_xay_ra" required>
+          <option value="" disabled selected hidden>Chọn...</option>
+          <option value="Ngoại thần kinh">Ngoại thần kinh</option>
+          <option value="Nội tổng quát">Nội tổng quát</option>
+          <option value="Dược">Dược</option>
+          <option value="Xét nghiệm">Xét nghiệm</option>
+          <option value="Quản lý chất lượng">Quản lý chất lượng</option>
+          <option value="Tài chính kế toán">Tài chính kế toán</option>
+          <option value="Kế hoạch tổng hợp">Kế hoạch tổng hợp</option>
+          <option value="Tổ chức cán bộ">Tổ chức cán bộ</option>
+          <option value="Ngoại tổng hợp">Ngoại tổng hợp</option>
+          <option value="Phẫu thuật GMHS">Phẫu thuật GMHS</option>
+          <option value="Ngoại lồng ngực">Ngoại lồng ngực</option>
+          <option value="Sơ sinh">Sơ sinh</option>
+          <option value="Tai mũi họng">Tai mũi họng</option>
+          <option value="Tim mạch">Tim mạch</option>
+          <option value="Hô hấp">Hô hấp</option>
+          <option value="Tiêu hoá">Tiêu hoá</option>
+          <option value="Thận nội tiết">Thận nội tiết</option>
+          <option value="Huyết học lâm sàng">Huyết học lâm sàng</option>
+          <option value="Khác">Khác</option>
+      </select>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="vi_tri_cu_the">Vị trí cụ thể</label>
+      <input class="col form-control" type="text" name="vi_tri_cu_the" id="vi_tri_cu_the" placeholder="ví dụ: nhà vệ sinh, bãi đậu xe" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12"for="thoi_gian_xay_ra">Thời gian xảy ra</label>
+      <input class="col form-control" type="datetime-local" name="thoi_gian_xay_ra" id="thoi_gian_xay_ra" placeholder="YYYY-MM-DD hh:mm", onchange="onChange" required>
+    </div>
+    <div class="row align-items-center">
+        <label class="col">Mô tả sự cố ngắn gọn</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <textarea class="form-control mb-3" name="mo_ta" id="mo_ta" rows=5 required></textarea>
+    </div>
+    <div class="row align-items-center">
+        <label class="col">Đề xuất giải pháp</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <textarea class="form-control mb-3" name="de_xuat_giai_phap" id="de_xuat_giai_phap" rows=5 required></textarea>
+    </div>
+    <div class="row align-items-center">
+        <label class="col">Điều trị/xử lý ban đầu</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <textarea class="form-control mb-3" name="xu_ly_ban_dau" id="xu_ly_ban_dau" rows=5 required></textarea>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend class="mb-3">Thông tin khác</legend>
+  <div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+        <label class="col">Thông tin cho bác sĩ điều trị/người có trách nhiệm</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem" value="Có" id="co_tbbs" required>
+        <label class="btn btn-outline-dark" for="co_tbbs">Có</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem" value="Không" id="khong_tbbs">
+        <label class="btn btn-outline-dark" for="khong_tbbs">Không</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem" value="Không ghi nhận" id="khong_ghi_nhan_tbbs">
+        <label class="btn btn-outline-dark" for="khong_ghi_nhan_tbbs">Không ghi nhận</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col">Ghi nhận hồ sơ bệnh/giấy tờ liên quan</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="ghi_nhan_ho_so" value="Có" id="co_gnhs" required>
+        <label class="btn btn-outline-dark" for="co_gnhs">Có</label>
+        <input type="radio" class="btn-check" name="ghi_nhan_ho_so" value="Không" id="khong_gnhs">
+        <label class="btn btn-outline-dark" for="khong_gnhs">Không</label>
+        <input type="radio" class="btn-check" name="ghi_nhan_ho_so" value="Không ghi nhận" id="khong_ghi_nhan_gnhs">
+        <label class="btn btn-outline-dark" for="khong_ghi_nhan_gnhs">Không ghi nhận</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col">Thông báo cho người nhà hoặc người bảo hộ</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho" value="Có" id="co_tbnn" required>
+        <label class="btn btn-outline-dark" for="co_tbnn">Có</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho" value="Không" id="khong_tbnn">
+        <label class="btn btn-outline-dark" for="khong_tbnn">Không</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho" value="Không ghi nhận" id="khong_ghi_nhan_tbnn">
+        <label class="btn btn-outline-dark" for="khong_ghi_nhan_tbnn">Không ghi nhận</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col">Thông báo cho người bệnh</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_benh" value="Có" id="co_tbnb" required>
+        <label class="btn btn-outline-dark" for="co_tbnb">Có</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_benh" value="Không" id="khong_tbnb">
+        <label class="btn btn-outline-dark" for="khong_tbnb">Không</label>
+        <input type="radio" class="btn-check" name="thong_bao_cho_nguoi_benh" value="Không ghi nhận" id="khong_ghi_nhan_tbnb">
+        <label class="btn btn-outline-dark" for="khong_ghi_nhan_tbnb">Không ghi nhận</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col">Phân loại ban đầu</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="phan_loai_ban_dau" value="Chưa xảy ra" id="chua_xay_ra" required>
+        <label class="btn btn-outline-dark" for="chua_xay_ra">Chưa xảy ra</label>
+        <input type="radio" class="btn-check" name="phan_loai_ban_dau" value="Đã xảy ra" id="da_xay_ra">
+        <label class="btn btn-outline-dark" for="da_xay_ra">Đã xảy ra</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col">Đánh giá ban đầu</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="danh_gia_ban_dau" value="Nặng" id="nang" required>
+        <label class="btn btn-outline-dark" for="nang">Nặng</label>
+        <input type="radio" class="btn-check" name="danh_gia_ban_dau" value="Trung bình" id="trung_binh">
+        <label class="btn btn-outline-dark" for="trung_binh">Trung bình</label>
+        <input type="radio" class="btn-check" name="danh_gia_ban_dau" value="Nhẹ" id="nhe">
+        <label class="btn btn-outline-dark" for="nhe">Nhẹ</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend class="mb-3">Thông tin người báo cáo</legend>
+  <div class="container-fluid">
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="ho_ten_nguoi_bao_cao">Họ và tên</label>
+      <input class ="col form-control" type="text"  name="ho_ten_nguoi_bao_cao" id="ho_ten_nguoi_bao_cao" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="so_dien_thoai_nguoi_bao_cao">Số điện thoại</label>
+      <input class ="col form-control" type="tel"  id="so_dien_thoai_nguoi_bao_cao" name="so_dien_thoai_nguoi_bao_cao" pattern="^\d*$" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="email_nguoi_bao_cao">Email</label>
+      <input class ="col form-control" type="email" name="email_nguoi_bao_cao" id="email_nguoi_bao_cao" placeholder="abc@bvndtp.org.vn" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="chuc_danh_nguoi_bao_cao">Chức danh người báo cáo</label>
+      <select class="col form-select" name="chuc_danh_nguoi_bao_cao" id="chuc_danh_nguoi_bao_cao" required>
+        <option value="" disabled selected hidden>Chọn...</option>
+        <option value="Bác sĩ">Bác sĩ</option>
+        <option value="Điều dưỡng">Điều dưỡng</option>
+        <option value="Người bệnh">Người bệnh</option>
+        <option value="Người nhà hoặc khách đến thăm">Người nhà hoặc khách đến thăm</option>
+        <option value="Khác">Khác</option>
+      </select>
+    </div>
+    <div class="row mb-3 align-items-center" id="chuc_danh_khac_div" style="display:none;">
+      <label class="col-md-4 col-12" for="chuc_danh_khac">Chức danh khác</label>
+      <input class="col form-control" name="chuc_danh_khac" id="chuc_danh_khac" placeholder="Nếu mục trên chọn khác thì điền vào đây">
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="nguoi_chung_kien_1">Người chứng kiến 1</label>
+      <input class ="col form-control" type="text" name="nguoi_chung_kien_1" id="nguoi_chung_kien_1" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="nguoi_chung_kien_2">Người chứng kiến 2</label>
+      <input class ="col form-control" type="text" name="nguoi_chung_kien_2" id="nguoi_chung_kien_2" required>
+    </div>
+  </div>
+</fieldset>
+<div class="row justify-content-center" >
+    <div class="col-6 mb-3 text-center" >
+        <input class="btn btn-primary btn-lg" type="submit" value="Gửi báo cáo">
+    </div>
+</div>   
+</form>

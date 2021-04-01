@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h3>Bạn đang xem báo cáo nhanh với ID là {{ id }}</h3>
+    </div>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-12">
+      <p>Ngày giờ báo cáo: {{ngay_gio_bao_cao}}</p>
+      <p>Đối tượng: {{doi_tuong}}</p>
+      <p>Vị trí xảy ra: {{vi_tri_xay_ra}}</p>
+      <p>Sự cố liên quan: {{lien_quan}}</p>
+      <p>Mô tả sự cố ngắn gọn: {{mo_ta}}</p>
+      <p>Số bệnh án: {{so_benh_an}}</p>
+      <p>Xử lý ban đầu: {{xu_ly}}</p>
+      
+      
+      <p><ul>Các đường dẫn file tài liệu:
+        {% for p in filepaths %}
+          <li>{{ p }}</li>
+          {% if p.lower().endswith('mp4') %}
+          <video autoplay controls>
+          <source src="{{url_for('homepage')}}get_upload_file/{{p}}" type='video/mp4'>
+          </video>
+          {% else %}
+          <a href="{{url_for('homepage')}}get_upload_file/{{p}}"><img src="{{url_for('homepage')}}get_upload_file/{{p}}" width=500></a>
+          {% endif %}
+        {% endfor %}
+      </ul></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

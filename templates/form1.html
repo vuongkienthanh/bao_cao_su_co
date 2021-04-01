@@ -1,0 +1,100 @@
+<form class="col-md-8 col-lg-6 col-11" action="./create_quick_report" method='post' id="tabcontent1" enctype="multipart/form-data">
+  <div class="container-fluid">
+
+    <div class="row my-3 align-items-center">
+      <label class="col-md-4 col-12" for="ngay_gio_bao_cao1">Ngày giờ báo cáo</label>
+      <input class="col form-control" type="datetime-local" id="ngay_gio_bao_cao1" name="ngay_gio_bao_cao1" placeholder="YYYY-MM-DD HH:MM" required>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col">Đối Tượng Xảy Ra Sự Cố</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col btn-group-vertical mx-md-5 mx-1 px-1 mb-3" role="group">
+        <input type="radio" class="btn-check" name="doi_tuong1" value="Người bệnh" id="nguoi_benh1" required>
+        <label class="btn btn-outline-dark" for="nguoi_benh1">Người bệnh</label>
+        <input type="radio" class="btn-check" name="doi_tuong1" value="Người nhà hoặc khách đến thăm" id="nguoi_nha_den_tham1">
+        <label class="btn btn-outline-dark" for="nguoi_nha_den_tham1">Người nhà/khách đến thăm</label>
+        <input type="radio" class="btn-check" name="doi_tuong1" value="Nhân viên y tế" id="nhan_vien_y_te1">
+        <label class="btn btn-outline-dark" for="nhan_vien_y_te1">Nhân viên y tế</label>
+        <input type="radio" class="btn-check" name="doi_tuong1" value="Trang thiết bị hoặc cơ sở hạ tầng" id="trang_thiet_bi1">
+        <label class="btn btn-outline-dark" for="trang_thiet_bi1">Trang thiết bị/cơ sở hạ tầng</label>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="vi_tri_xay_ra1">Nơi xảy ra sự cố</label>
+      <select class="col form-select" name="vi_tri_xay_ra1" id="vi_tri_xay_ra1" required>
+          <option value="" disabled selected hidden>Chọn...</option>
+          <option value="Ngoại thần kinh">Ngoại thần kinh</option>
+          <option value="Nội tổng quát">Nội tổng quát</option>
+          <option value="Dược">Dược</option>
+          <option value="Xét nghiệm">Xét nghiệm</option>
+          <option value="Quản lý chất lượng">Quản lý chất lượng</option>
+          <option value="Tài chính kế toán">Tài chính kế toán</option>
+          <option value="Kế hoạch tổng hợp">Kế hoạch tổng hợp</option>
+          <option value="Tổ chức cán bộ">Tổ chức cán bộ</option>
+          <option value="Ngoại tổng hợp">Ngoại tổng hợp</option>
+          <option value="Phẫu thuật GMHS">Phẫu thuật GMHS</option>
+          <option value="Ngoại lồng ngực">Ngoại lồng ngực</option>
+          <option value="Sơ sinh">Sơ sinh</option>
+          <option value="Tai mũi họng">Tai mũi họng</option>
+          <option value="Tim mạch">Tim mạch</option>
+          <option value="Hô hấp">Hô hấp</option>
+          <option value="Tiêu hoá">Tiêu hoá</option>
+          <option value="Thận nội tiết">Thận nội tiết</option>
+          <option value="Huyết học lâm sàng">Huyết học lâm sàng</option>
+          <option value="Khác">Khác</option>
+      </select>
+    </div>
+    <div class="row align-items-center">
+        <label class="col">Sự cố liên quan đến các vấn đề</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <select class="col form-select" name="su_co_lien_quan1" id="su_co_lien_quan1" required>
+          <option value="" disabled selected hidden>Chọn...</option>
+          <option value="Nhầm lẫn thông tin bệnh nhân">Nhầm lẫn thông tin bệnh nhân</option>
+          <option value="Truyền nhấm máu và các chế phẩm máu">Truyền nhấm máu và các chế phẩm máu</option>
+          <option value="Phẫu thuật sai bệnh nhân, vị trí">Phẫu thuật sai bệnh nhân, vị trí</option>
+          <option value="Giao nhầm thuốc">Giao nhầm thuốc</option>
+          <option value="Gửi mẫu xét nghiệm sai quy định">Gửi mẫu xét nghiệm sai quy định</option>
+          <option value="Chất lượng thuốc, vật tư tiêu hao không đảm bảo">Chất lượng thuốc, vật tư tiêu hao không đảm bảo</option>
+          <option value="Kê sai toa thuốc">Kê sai toa thuốc</option>
+          <option value="Bệnh nhân té ngã">Bệnh nhân té ngã</option>
+          <option value="Trần nhà, sàn nhà hư, sụt lún">Trần nhà, sàn nhà hư, sụt lún</option>
+          <option value="Trang thiết bị, vật tư y tế hư lỗi">Trang thiết bị, vật tư y tế hư lỗi</option>
+          <option value="Thiếu thuốc, vật tư y tế nội ngoại trú">Thiếu thuốc, vật tư y tế nội ngoại trú</option>
+          <option value="Phần mềm HIS, Labcon bị hư lỗi">Phần mềm HIS, Labcon bị hư lỗi</option>
+          <option value="Khác">Khác</option>
+      </select>
+    </div>
+    <div class="row mb-3 align-items-center" id="su_co_lien_quan_khac_div" style="display:none;">
+      <div class="row align-items-center" for="su_co_lien_quan_khac">
+        <label class="col">Mô tả sự cố ngắn gọn</label>
+      </div>
+      <div class="row mb-3 align-items-center">
+        <textarea class="form-control mb-3" name="su_co_lien_quan_khac" id="su_co_lien_quan_khac" rows=5></textarea>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <label class="col-md-4 col-12" for="so_benh_an1">Số bệnh án</label>
+      <input class="col form-control" type="text" name="so_benh_an1" id="so_benh_an1" placeholder="nếu có">
+    </div>
+    <div class="row align-items-center" for="xu_ly_ban_dau1">
+        <label class="col">Xử lý ban đầu</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <textarea class="form-control mb-3" name="xu_ly_ban_dau1" id="xu_ly_ban_dau1" rows=5></textarea>
+    </div>
+    <div class="row mb-3 align-items-center">
+        <label class="col" for="gui_tai_lieu" >Quý anh (chị) có thể gửi tài liệu bằng video, hình ảnh, đoạn ghi âm,.. tại đây</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <input class="form-control" type="file" id="gui_tai_lieu" name="gui_tai_lieu" multiple>
+    </div>
+    <div class="row justify-content-center" >
+      <div class="col-6 mb-3 text-center" >
+          <input class="btn btn-primary btn-lg" type="submit" value="Gửi báo cáo">
+      </div>
+    </div>   
+  </div>
+
+</form>

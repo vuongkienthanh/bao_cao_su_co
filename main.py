@@ -1,13 +1,17 @@
 from schema import *
+from my_classes import MyResponse
 from create_report import create_pdf
 import sql
 import io
-from typing import Optional
+from typing import Optional, List
 import datetime as dt
 import csv
 import os
-from fastapi import FastAPI, Request, Form, status, Depends, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi import (FastAPI, Request, Form,
+                     status, Depends, HTTPException,
+                     UploadFile, File, Header,
+                     BackgroundTasks)
+from fastapi.responses import StreamingResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import constr, EmailStr
@@ -72,8 +76,9 @@ async def startup():
         sql.create_db()
 
 
-@app.get("/", summary="Form báo cáo", tags=['Giao diện'])
+@app.get("/", summary="Form báo cáo", tags=['Giao diện'], name='homepage')
 async def root(request: Request):
+    '''Giao diện form báo cáo chính'''
     return templates.TemplateResponse(
         "index.html",
         {"request": request})
@@ -84,6 +89,7 @@ async def root(request: Request):
           status_code=status.HTTP_201_CREATED,
           tags=["User"])
 async def create_user(username: str, password: str, superuser: bool, super_authen: str = Depends(super_authen)):
+    '''Quản lý các tài khoản'''
     data = {
         'username': username,
         'hashed_password': bcrypt.hash(password),
@@ -101,6 +107,7 @@ async def create_user(username: str, password: str, superuser: bool, super_authe
 
 @app.delete("/delete_user", summary="Xoá user (cần đăng nhập superuser)", tags=["User"])
 async def delete_user(username: str, super_authen: str = Depends(super_authen)):
+    '''Quản lý các tài khoản'''
     data = {
         'username': username
     }
@@ -114,7 +121,7 @@ async def delete_user(username: str, super_authen: str = Depends(super_authen)):
         )
 
 
-@app.post("/create_report", summary="Gửi báo cáo", status_code=status.HTTP_201_CREATED, tags=['Giao diện'])
+@app.post("/create_report", summary="Gửi báo cáo đầy đủ", status_code=status.HTTP_201_CREATED, tags=['Giao diện'])
 async def create_report(
         request: Request,
         hinh_thuc: Hinh_Thuc = Form(..., description="Hình thức báo cáo sự cố"),
@@ -145,6 +152,7 @@ async def create_report(
         chuc_danh_khac: Optional[str] = Form(None, description="Chức danh khác (nêu rõ khi chọn khác ở mục trên)"),
         nguoi_chung_kien_1: str = Form(..., description="Người chứng kiến 1"),
         nguoi_chung_kien_2: str = Form(..., description="Người chứng kiến 2")):
+    '''Gửi form data để lưu vào database, sau đó trả web thông báo đã nhận'''
     data = {
         "hinh_thuc": hinh_thuc.value,
         "ngay_bao_cao": ngay_bao_cao,
@@ -171,17 +179,48 @@ async def create_report(
         "so_dien_thoai_nguoi_bao_cao": so_dien_thoai_nguoi_bao_cao,
         "email_nguoi_bao_cao": email_nguoi_bao_cao,
         "chuc_danh_nguoi_bao_cao": chuc_danh_nguoi_bao_cao.value,
-        "chuc_danh_khac": chuc_danh_khac,
         "nguoi_chung_kien_1": nguoi_chung_kien_1,
         "nguoi_chung_kien_2": nguoi_chung_kien_2}
+    if data['chuc_danh_nguoi_bao_cao'] == 'Khác':
+        data['chuc_danh_nguoi_bao_cao'] = chuc_danh_khac
     lastrowid = sql.create_report(data)
     data.update({'id': lastrowid, 'request': request})
     return templates.TemplateResponse(
-        "send_report.html", data)
+        "create_report.html", data)
 
 
-@app.get("/get_report/{id}", summary="Xem báo cáo theo id", tags=['Giao diện', 'Báo cáo'])
+@app.post("/create_quick_report", summary="Gửi báo cáo nhanh", status_code=status.HTTP_201_CREATED, tags=['Giao diện'])
+async def create_quick_report(
+        request: Request,
+        background_tasks: BackgroundTasks,
+        ngay_gio_bao_cao1: dt.datetime = Form(..., description="Ngày giờ báo cáo sự cố"),
+        doi_tuong1: Doi_Tuong = Form(..., description="Đối tượng báo cáo: Người bệnh; Người nhà hoặc khách đến thăm; Nhân viên y tế; Trang thiết bị hoặc cơ sở hạ tầng"),
+        vi_tri_xay_ra1: Vi_Tri_Xay_Ra = Form(..., description="Vị trí xảy ra sự cố. Ví dụ như ở khoa phòng, khuôn viên bệnh viện,.."),
+        su_co_lien_quan1: Related = Form(..., description="Các sự cố thường gặp để được chọn dễ hơn"),
+        su_co_lien_quan_khac: Optional[str] = Form(None, description="Mô tả ngắn gọn sự cố nếu chọn khác"),
+        so_benh_an1: Optional[constr(regex="^\d{8}$")] = Form(None, description="Số hồ sơ bệnh án. Ví dụ: 19002000"),
+        xu_ly_ban_dau1: Optional[str] = Form(None, description="Điều trị/xử lý ban đầu"),
+        gui_tai_lieu: Optional[List[UploadFile]] = File(None)):
+    '''Gửi form data để lưu vào database, sau đó trả web thông báo đã nhận'''
+    data = {
+        "ngay_gio_bao_cao1": ngay_gio_bao_cao1,
+        "doi_tuong1": doi_tuong1.value,
+        "vi_tri_xay_ra1": vi_tri_xay_ra1.value,
+        "su_co_lien_quan1": su_co_lien_quan1.value,
+        "su_co_lien_quan_khac": su_co_lien_quan_khac,
+        "so_benh_an1": so_benh_an1,
+        "xu_ly_ban_dau1": xu_ly_ban_dau1,
+        "gui_tai_lieu": gui_tai_lieu}
+    filepaths, lastrowid = sql.create_quick_report(data)
+    background_tasks.add_task(sql.convert_video, filepaths)
+    data.update({'id': lastrowid, 'request': request})
+    return templates.TemplateResponse(
+        "create_quick_report.html", data)
+
+
+@app.get("/get_report/{id}", summary="Xem báo cáo đầy đủ theo id", tags=['Giao diện', 'Báo cáo'])
 async def get_report(request: Request, id: int, username: str = Depends(authen)):
+    '''Xem báo cáo đầy đủ trên trang web, kèm theo link tạo pdf'''
     data = sql.get_report(id)
     if data:
         data.update({'request': request})
@@ -194,10 +233,42 @@ async def get_report(request: Request, id: int, username: str = Depends(authen))
         )
 
 
+@app.get("/get_quick_report/{id}", summary="Xem báo cáo nhanh theo id", tags=['Giao diện', 'Báo cáo'])
+async def get_quick_report(request: Request, id: int, username: str = Depends(authen)):
+    '''Xem báo cáo nhanh theo ID, hiện thị bằng trang web, có hiển thị video, hình ảnh'''
+    data = sql.get_quick_report(id)
+    if data:
+        data['filepaths'] = data['filepaths'].split(';')
+        for i in range(len(data['filepaths'])):
+            name = data['filepaths'][i].rsplit(os.path.sep, 1)[-1]
+            data['filepaths'][i] = f'{name}'
+        data.update({'request': request})
+        return templates.TemplateResponse(
+            "get_quick_report.html", data)
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="quick report doesnt exist"
+        )
+
+
+@app.get("/get_upload_file/{filename}", summary="Xem tài liệu hình ảnh, video",
+         tags=['Báo cáo'])
+async def get_upload_file(request: Request, filename: str,
+                          username: str = Depends(authen)):
+    '''Dùng đẻ tải file tài liệu vào trang *get_quick_report*'''
+    full_path = os.path.join(sql.gui_tai_lieu_folder, filename)
+    if not full_path.lower().endswith('mp4'):
+        return FileResponse(full_path)
+    else:
+        return MyResponse(full_path, request)
+
+
 @app.delete("/delete_report/{id}",
-            summary="Xoá báo cáo theo id (cần đăng nhập superuser)",
+            summary="Xoá báo cáo đầy đủ theo ID (cần đăng nhập superuser)",
             tags=['Báo cáo'])
 async def delete_report(id: int, username: str = Depends(super_authen)):
+    '''Xoá báo cáo đầy đủ theo ID'''
     rowcount = sql.delete_report(id)
     if rowcount >= 1:
         return {'deleted_report_id': id}
@@ -205,6 +276,21 @@ async def delete_report(id: int, username: str = Depends(super_authen)):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="report doesnt exist"
+        )
+
+
+@app.delete("/delete_quick_report/{id}",
+            summary="Xoá báo cáo nhanh theo ID (cần đăng nhập superuser)",
+            tags=['Báo cáo'])
+async def delete_quick_report(id: int, username: str = Depends(super_authen)):
+    '''Xoá báo cáo nhanh theo ID'''
+    rowcount = sql.delete_quick_report(id)
+    if rowcount >= 1:
+        return {'deleted_quick_report_id': id}
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="quick report doesnt exist"
         )
 
 
@@ -236,9 +322,9 @@ async def get_pdf(
         so_dien_thoai_nguoi_bao_cao: str,
         email_nguoi_bao_cao: str,
         chuc_danh_nguoi_bao_cao: str,
-        chuc_danh_khac: str,
         nguoi_chung_kien_1: str,
         nguoi_chung_kien_2: str):
+    '''Tạo file pdf từ các tham số query, mẫu theo Bộ Y Tế'''
     data = {
         "id": id,
         "hinh_thuc": hinh_thuc,
@@ -266,7 +352,6 @@ async def get_pdf(
         "so_dien_thoai_nguoi_bao_cao": so_dien_thoai_nguoi_bao_cao,
         "email_nguoi_bao_cao": email_nguoi_bao_cao,
         "chuc_danh_nguoi_bao_cao": chuc_danh_nguoi_bao_cao,
-        "chuc_danh_khac": chuc_danh_khac,
         "nguoi_chung_kien_1": nguoi_chung_kien_1,
         "nguoi_chung_kien_2": nguoi_chung_kien_2}
     stream = io.BytesIO()
@@ -278,9 +363,20 @@ async def get_pdf(
 
 
 @app.get("/get_csv", summary="Tải data (csv) về", tags=["Tạo file"])
-async def get_csv(download: Optional[bool] = False, username: str = Depends(authen)):
+async def get_csv(
+        download: Optional[bool] = False,
+        start: Optional[dt.date] = dt.date(dt.date.today().year, 1, 1),
+        end: Optional[dt.date] = dt.date.today() + dt.timedelta(days=1),
+        full: Optional[bool] = False,
+        username: str = Depends(authen)):
+    '''Tải data (csv) về, với các tham số:
+- *download*: Cho phép tải về trực tiếp vào máy. Mặc định: `false`.
+- *start*: Thời điểm bắt đầu để lọc báo cáo. Mặc định là ngày đầu năm.
+- *end*: Thời điểm kết thúc để lọc báo cáo. Mặc định là ngày hôm nay + 1.
+- *full*: Tải tất cả dữ liệu. Mặc định: `false`.
+    '''
     stream = io.StringIO()
-    headers, data = sql.get_all_reports()
+    headers, data = sql.get_reports(start, end, full)
     writer = csv.writer(stream)
     writer.writerow(headers)
     writer.writerows(data)
@@ -289,7 +385,3 @@ async def get_csv(download: Optional[bool] = False, username: str = Depends(auth
         response.headers["Content-Disposition"] = "attachment; filename=bao_cao_su_co.csv"
     return response
 
-if __name__ == "__main__":
-    # create_db()
-    # print(bcrypt.hash('12345'))
-    pass

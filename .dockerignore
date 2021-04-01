@@ -1,2 +1,10 @@
 *.db
 *.dbbk
+tai_lieu
+Procfile
+LICENSE
+README.md
+runtime.txt
+__pycache__
+.gitignore
+.git

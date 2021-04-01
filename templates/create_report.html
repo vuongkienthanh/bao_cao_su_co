@@ -4,15 +4,17 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-6">
-      <h3>Đã nhận được báo cáo với ID là {{ id }}</h3>
+      <h3>Cám ơn sự quan tâm của bạn.</h3>
+      <h3>Báo cáo của bạn có ID là {{ id }}</h3>
+      <p>Bệnh viện đã nhận được báo cáo của bạn và sẽ phản hồi lại trong thời gian sớm nhất.</p>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-6">
-      <p><a href="./get_pdf?id={{id}}&hinh_thuc={{hinh_thuc}}&ngay_bao_cao={{ngay_bao_cao}}&don_vi_bao_cao={{don_vi_bao_cao}}&ho_ten_nguoi_benh={{ho_ten_nguoi_benh}}&so_benh_an={{so_benh_an}}&ngay_sinh={{ngay_sinh}}&gioi_tinh={{gioi_tinh}}&doi_tuong={{doi_tuong}}&khoa_phong={{khoa_phong}}&vi_tri_xay_ra={{vi_tri_xay_ra}}&vi_tri_cu_the={{vi_tri_cu_the}}&thoi_gian_xay_ra={{thoi_gian_xay_ra}}&mo_ta={{mo_ta}}&de_xuat_giai_phap={{de_xuat_giai_phap}}&xu_ly_ban_dau={{xu_ly_ban_dau}}&thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem={{thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem}}&ghi_nhan_ho_so={{ghi_nhan_ho_so}}&thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho={{thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho}}&thong_bao_cho_nguoi_benh={{thong_bao_cho_nguoi_benh}}&phan_loai_ban_dau={{phan_loai_ban_dau}}&danh_gia_ban_dau={{danh_gia_ban_dau}}&ho_ten_nguoi_bao_cao={{ho_ten_nguoi_bao_cao}}&so_dien_thoai_nguoi_bao_cao={{so_dien_thoai_nguoi_bao_cao}}&email_nguoi_bao_cao={{email_nguoi_bao_cao}}&chuc_danh_nguoi_bao_cao={{chuc_danh_nguoi_bao_cao}}&chuc_danh_khac={{chuc_danh_khac}}&nguoi_chung_kien_1={{nguoi_chung_kien_1}}&nguoi_chung_kien_2={{nguoi_chung_kien_2}}">In báo cáo</a></p>
+      <p><a href="./get_pdf?id={{id}}&hinh_thuc={{hinh_thuc}}&ngay_bao_cao={{ngay_bao_cao}}&don_vi_bao_cao={{don_vi_bao_cao}}&ho_ten_nguoi_benh={{ho_ten_nguoi_benh}}&so_benh_an={{so_benh_an}}&ngay_sinh={{ngay_sinh}}&gioi_tinh={{gioi_tinh}}&doi_tuong={{doi_tuong}}&khoa_phong={{khoa_phong}}&vi_tri_xay_ra={{vi_tri_xay_ra}}&vi_tri_cu_the={{vi_tri_cu_the}}&thoi_gian_xay_ra={{thoi_gian_xay_ra}}&mo_ta={{mo_ta}}&de_xuat_giai_phap={{de_xuat_giai_phap}}&xu_ly_ban_dau={{xu_ly_ban_dau}}&thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem={{thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem}}&ghi_nhan_ho_so={{ghi_nhan_ho_so}}&thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho={{thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho}}&thong_bao_cho_nguoi_benh={{thong_bao_cho_nguoi_benh}}&phan_loai_ban_dau={{phan_loai_ban_dau}}&danh_gia_ban_dau={{danh_gia_ban_dau}}&ho_ten_nguoi_bao_cao={{ho_ten_nguoi_bao_cao}}&so_dien_thoai_nguoi_bao_cao={{so_dien_thoai_nguoi_bao_cao}}&email_nguoi_bao_cao={{email_nguoi_bao_cao}}&chuc_danh_nguoi_bao_cao={{chuc_danh_nguoi_bao_cao}}&nguoi_chung_kien_1={{nguoi_chung_kien_1}}&nguoi_chung_kien_2={{nguoi_chung_kien_2}}">In báo cáo</a></p>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <!-- <div class="row justify-content-center">
     <div class="col-md-8 col-12">
       <p>Hình thức: {{hinh_thuc}}</p>
       <p>Ngày báo cáo {{ngay_bao_cao}}</p>
@@ -39,13 +41,10 @@
       <p>Số điện thoại: {{so_dien_thoai_nguoi_bao_cao}}</p>
       <p>Email: {{email_nguoi_bao_cao}}</p>
       <p>Chức danh người báo cáo: {{chuc_danh_nguoi_bao_cao}}</p>
-      {% if chuc_danh_khac %}
-      <p>Chức danh khác: {{chuc_danh_khac}}</p>
-      {% endif %}
       <p>Người chứng kiến 1: {{nguoi_chung_kien_1}}</p>
       <p>Người chứng kiến 2: {{nguoi_chung_kien_2}}</p>
     </div>
-  </div>
+  </div> -->
 </div>
 {% endblock %}
 
