@@ -131,3 +131,5 @@ dmypy.json
 # my_proj
 *.db
 *.dbbk
+tai_lieu/
+tai_lieu
