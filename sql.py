@@ -1,3 +1,4 @@
+from init import data_folder, tai_lieu_folder
 import datetime as dt
 import sqlite3
 import shutil
@@ -7,10 +8,7 @@ from passlib.hash import bcrypt
 import pyheif
 from PIL import Image
 
-db_name = 'bao_cao_su_co.db'
-gui_tai_lieu_folder = os.path.join(os.path.dirname(os.path.abspath(__name__)), "tai_lieu")
-if not os.path.exists(gui_tai_lieu_folder):
-    os.mkdir(gui_tai_lieu_folder)
+db_name = os.path.join(data_folder, 'bao_cao_su_co.db')
 
 headers_bcsc = [
     "id", "hinh_thuc", "ngay_bao_cao", "don_vi_bao_cao",
@@ -56,7 +54,7 @@ def conn(func):
     return inner
 
 
-@conn
+@ conn
 def create_db(cur):
     cur.execute('''CREATE TABLE bao_cao_su_co (
         id INTEGER PRIMARY KEY,
@@ -110,7 +108,7 @@ def create_db(cur):
     )
 
 
-@conn
+@ conn
 def create_report(cur, data):
     data['thoi_gian_xay_ra'] = dt_to_int(data['thoi_gian_xay_ra'])
     cur.execute("INSERT INTO bao_cao_su_co ({a}) VALUES ({b});".format(
@@ -120,7 +118,7 @@ def create_report(cur, data):
     return cur.lastrowid
 
 
-@conn
+@ conn
 def create_quick_report(cur, data):
     data['ngay_gio_bao_cao1'] = dt_to_int(data['ngay_gio_bao_cao1'])
     files = data.pop('gui_tai_lieu')
@@ -131,25 +129,30 @@ def create_quick_report(cur, data):
     rid = cur.lastrowid
     filepaths = []
     for f in files:
-        filepath = os.path.join(gui_tai_lieu_folder, str(rid) + "_" + f.filename)
-        if filepath.lower().endswith('heic') or filepath.lower().endswith('heif'):
-            filepath = filepath[:-4] + 'jpg'
-            hf = pyheif.read(f.file)
-            image = Image.frombytes(
-                hf.mode,
-                hf.size,
-                hf.data,
-                "raw",
-                hf.mode,
-                hf.stride,
-            )
-            image.save(filepath, "JPEG")
-        elif filepath.lower().endswith('mov'):
-            filepath = filepath[:-3] + 'mp4'
-            print('zzz', filepath)
+        if f.filename == "":
+            break
+        else:
+            f.filename = ''.join(f.filename.split(' '))
+            name, ext = f.filename.rsplit('.', 1)
+            f.filename = ''.join(name.split('.')) + '.' + ext
+            filepath = os.path.join(tai_lieu_folder, str(rid) + "_" + f.filename)
+            if filepath.lower().endswith('heic') or filepath.lower().endswith('heif'):
+                filepath = filepath[:-4] + 'jpg'
+                hf = pyheif.read(f.file)
+                image = Image.frombytes(
+                    hf.mode,
+                    hf.size,
+                    hf.data,
+                    "raw",
+                    hf.mode,
+                    hf.stride,
+                )
+                image.save(filepath, "JPEG")
+            elif filepath.lower().endswith('mov'):
+                filepath = filepath[:-3] + 'mp4'
             with open(filepath, "wb") as buffer:
                 shutil.copyfileobj(f.file, buffer)
-        filepaths.append(filepath)
+            filepaths.append(filepath)
     cur.execute(f"UPDATE quick_bcsc SET filepaths=? WHERE id={rid};",
                 (";".join(filepaths),))
     return filepaths, rid
@@ -161,7 +164,7 @@ def convert_video(filepaths):
         new_f = f[:-3] + 'mp4'
         command = ['ffmpeg', '-y', '-i', f, new_f]
         process = subprocess.run(command)
-        if process.returncode==0:
+        if process.returncode == 0:
             os.remove(f)
 
 
@@ -171,7 +174,6 @@ def get_report(cur, id):
     item = cur.fetchone()
     if item:
         res = {h: i for h, i in zip(headers_bcsc, item)}
-        res['thoi_gian_xay_ra'] = int_to_dt(res['thoi_gian_xay_ra'])
         return res
     else:
         return None
@@ -201,6 +203,7 @@ def get_reports(cur, start, end, full):
     cur.execute("SELECT * FROM bao_cao_su_co WHERE "
                 "thoi_gian_xay_ra>=? AND thoi_gian_xay_ra<=?;", (start, end))
     data = cur.fetchall()
+    res = {h:i for h,i in zip}
     return headers_bcsc, data
 
 

@@ -1,15 +1,17 @@
+from init import fonts_folder
+import textwrap
+import os
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.units import cm
 from reportlab.lib.colors import white
 from reportlab.pdfbase.ttfonts import TTFont
-import textwrap
-import os
 
-pdfmetrics.registerFont(TTFont('Bitter', os.path.join('fonts', 'Bitter-Regular.ttf')))
-pdfmetrics.registerFont(TTFont('BitterBold', os.path.join('fonts', 'Bitter-Bold.ttf')))
-pdfmetrics.registerFont(TTFont('BitterItalic', os.path.join('fonts', 'Bitter-Italic.ttf')))
+
+pdfmetrics.registerFont(TTFont('Bitter', os.path.join(fonts_folder, 'Bitter-Regular.ttf')))
+pdfmetrics.registerFont(TTFont('BitterBold', os.path.join(fonts_folder, 'Bitter-Bold.ttf')))
+pdfmetrics.registerFont(TTFont('BitterItalic', os.path.join(fonts_folder, 'Bitter-Italic.ttf')))
 fontname = 'Bitter'
 fontsize = 12
 w, h = A4
@@ -300,6 +302,7 @@ def d_footer(c):
 
 
 def create_pdf(stream, **kwarg):
+    global ct_ys
     c = canvas.Canvas(stream, pagesize=A4)
     c.setLineWidth(1)
     c.setStrokeColorRGB(0, 0, 0)
@@ -345,3 +348,4 @@ def create_pdf(stream, **kwarg):
     d_obs(c, kwarg["nguoi_chung_kien_1"], kwarg["nguoi_chung_kien_2"])
     d_footer(c)
     c.save()
+    ct_ys = 0.88 * h

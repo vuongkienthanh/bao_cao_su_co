@@ -21,14 +21,17 @@
       
       <p><ul>Các đường dẫn file tài liệu:
         {% for p in filepaths %}
-          <li>{{ p }}</li>
-          {% if p.lower().endswith('mp4') %}
-          <video autoplay controls>
-          <source src="{{url_for('homepage')}}get_upload_file/{{p}}" type='video/mp4'>
-          </video>
-          {% else %}
-          <a href="{{url_for('homepage')}}get_upload_file/{{p}}"><img src="{{url_for('homepage')}}get_upload_file/{{p}}" width=500></a>
+          {% if p != '' %}
+            <li>{{ p }}</li>
+            {% if p.lower().endswith('mp4') %}
+              <video autoplay controls>
+              <source src="{{url_for('homepage')}}get_upload_file?filename={{p}}" type='video/mp4'>
+              </video>
+            {% else %}
+              <a href="{{url_for('homepage')}}get_upload_file/{{p}}"><img src="{{url_for('homepage')}}get_upload_file?filename={{p}}" width=500></a>
+            {% endif %}
           {% endif %}
+
         {% endfor %}
       </ul></p>
     </div>

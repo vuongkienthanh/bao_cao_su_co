@@ -2,8 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Kanit&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
-html,
-body,
+@font-face {
+  font-family: 'VN-Constance';
+  src: url('../fonts/VN-Constance.ttf')  format('truetype'); /* Legacy iOS */
+}
 div,
 span,
 applet,
@@ -70,7 +72,6 @@ details,
 embed,
 figure,
 figcaption,
-footer,
 header,
 hgroup,
 menu,
@@ -84,7 +85,7 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: "Bitter";
+  font-family: inherit;
   vertical-align: baseline; }
 
 ol, ul {
@@ -94,13 +95,17 @@ select:invalid {
   color: gray; }
 
 nav {
-  background-color: #0D60AA;
+  background-color: rgb(13, 96, 170);
 }
 h1 {
   text-align: center;
   font-size: 2rem !important;
   font-family: 'Kanit', sans-serif;
   color: #FFFFFF; }
+
+p {
+  word-wrap: normal;
+}
 
 @media only screen and (max-width: 350px) {
   /* For mobile phones: */
@@ -110,14 +115,15 @@ h1 {
 }
 
 main {
-  background-color:silver;
-  background-image:
+  background-color: rgb(239, 239, 239);
+  font-family: "VN-Constance", sans-serif;
+  /*background-image:
   radial-gradient(circle at 100% 150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
   radial-gradient(circle at 0    150%, silver 24%, white 24%, white 28%, silver 28%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
   radial-gradient(circle at 50%  100%, white 10%, silver 10%, silver 23%, white 23%, white 30%, silver 30%, silver 43%, white 43%, white 50%, silver 50%, silver 63%, white 63%, white 71%, transparent 71%, transparent),
   radial-gradient(circle at 100% 50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent),
   radial-gradient(circle at 0    50%, white 5%, silver 5%, silver 15%, white 15%, white 20%, silver 20%, silver 29%, white 29%, white 34%, silver 34%, silver 44%, white 44%, white 49%, transparent 49%, transparent);
-  background-size: 100px 50px;}
+  background-size: 100px 50px;*/}
 
 
 
@@ -150,4 +156,8 @@ main .submit {
 .btn-group-vertical {
   display: flex;
   justify-content: center;
+}
+
+footer {
+  font-family: 'Bitter', sans-serif;
 }

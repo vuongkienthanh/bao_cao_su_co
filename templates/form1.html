@@ -6,20 +6,16 @@
       <input class="col form-control" type="datetime-local" id="ngay_gio_bao_cao1" name="ngay_gio_bao_cao1" placeholder="YYYY-MM-DD HH:MM" required>
     </div>
     <div class="row mb-3 align-items-center">
-      <label class="col">Đối Tượng Xảy Ra Sự Cố</label>
+      <label class="col-md-4 col-12" for="doi_tuong1">Đối Tượng Xảy Ra Sự Cố</label>
+      <select class="col form-select" name="doi_tuong1" id="doi_tuong1" required>
+        <option value="" disabled selected hidden>Chọn...</option>
+        <option value="Người bệnh">Người bệnh</option>
+        <option value="Người nhà hoặc khách đến thăm">Người nhà/khách đến thăm</option>
+        <option value="Nhân viên y tế">Nhân viên y tế</option>
+        <option value="Trang thiết bị hoặc cơ sở hạ tầng">Trang thiết bị/cơ sở hạ tầng</option>
+      </select>
     </div>
-    <div class="row mb-3 align-items-center">
-      <div class="col btn-group-vertical mx-md-5 mx-1 px-1 mb-3" role="group">
-        <input type="radio" class="btn-check" name="doi_tuong1" value="Người bệnh" id="nguoi_benh1" required>
-        <label class="btn btn-outline-dark" for="nguoi_benh1">Người bệnh</label>
-        <input type="radio" class="btn-check" name="doi_tuong1" value="Người nhà hoặc khách đến thăm" id="nguoi_nha_den_tham1">
-        <label class="btn btn-outline-dark" for="nguoi_nha_den_tham1">Người nhà/khách đến thăm</label>
-        <input type="radio" class="btn-check" name="doi_tuong1" value="Nhân viên y tế" id="nhan_vien_y_te1">
-        <label class="btn btn-outline-dark" for="nhan_vien_y_te1">Nhân viên y tế</label>
-        <input type="radio" class="btn-check" name="doi_tuong1" value="Trang thiết bị hoặc cơ sở hạ tầng" id="trang_thiet_bi1">
-        <label class="btn btn-outline-dark" for="trang_thiet_bi1">Trang thiết bị/cơ sở hạ tầng</label>
-      </div>
-    </div>
+      
     <div class="row mb-3 align-items-center">
       <label class="col-md-4 col-12" for="vi_tri_xay_ra1">Nơi xảy ra sự cố</label>
       <select class="col form-select" name="vi_tri_xay_ra1" id="vi_tri_xay_ra1" required>
@@ -52,7 +48,7 @@
       <select class="col form-select" name="su_co_lien_quan1" id="su_co_lien_quan1" required>
           <option value="" disabled selected hidden>Chọn...</option>
           <option value="Nhầm lẫn thông tin bệnh nhân">Nhầm lẫn thông tin bệnh nhân</option>
-          <option value="Truyền nhấm máu và các chế phẩm máu">Truyền nhấm máu và các chế phẩm máu</option>
+          <option value="Truyền nhầm máu và các chế phẩm máu">Truyền nhầm máu và các chế phẩm máu</option>
           <option value="Phẫu thuật sai bệnh nhân, vị trí">Phẫu thuật sai bệnh nhân, vị trí</option>
           <option value="Giao nhầm thuốc">Giao nhầm thuốc</option>
           <option value="Gửi mẫu xét nghiệm sai quy định">Gửi mẫu xét nghiệm sai quy định</option>
@@ -62,7 +58,8 @@
           <option value="Trần nhà, sàn nhà hư, sụt lún">Trần nhà, sàn nhà hư, sụt lún</option>
           <option value="Trang thiết bị, vật tư y tế hư lỗi">Trang thiết bị, vật tư y tế hư lỗi</option>
           <option value="Thiếu thuốc, vật tư y tế nội ngoại trú">Thiếu thuốc, vật tư y tế nội ngoại trú</option>
-          <option value="Phần mềm HIS, Labcon bị hư lỗi">Phần mềm HIS, Labcon bị hư lỗi</option>
+          <option value="Phần mềm HIS, Labcom bị hư lỗi">Phần mềm HIS, Labcom bị hư lỗi</option>
+          <option value="Bệnh nhân từ chối sử dụng dịch vụ tại Bệnh viện">Bệnh nhân từ chối sử dụng dịch vụ tại Bệnh viện</option>
           <option value="Khác">Khác</option>
       </select>
     </div>

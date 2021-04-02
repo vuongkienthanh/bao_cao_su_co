@@ -1,0 +1,11 @@
+{
+    "server_host":"mail.bvndtp.org.vn",
+    "server_port":"587",
+    "login_user": "thanh.vuong",
+    "login_password": "ndtp@123",
+    "sender_email": "thanh.vuong@bvndtp.org.vn",
+    "receiver_email":[
+        "thanh.vuong@bvndtp.org.vn",
+        "thanhstardust@outlook.com"
+    ]
+}

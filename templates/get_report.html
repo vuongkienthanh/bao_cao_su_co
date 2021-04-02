@@ -10,7 +10,7 @@
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="col-6">
-      <p><a href="../get_pdf?id={{id}}&hinh_thuc={{hinh_thuc}}&ngay_bao_cao={{ngay_bao_cao}}&don_vi_bao_cao={{don_vi_bao_cao}}&ho_ten_nguoi_benh={{ho_ten_nguoi_benh}}&so_benh_an={{so_benh_an}}&ngay_sinh={{ngay_sinh}}&gioi_tinh={{gioi_tinh}}&doi_tuong={{doi_tuong}}&khoa_phong={{khoa_phong}}&vi_tri_xay_ra={{vi_tri_xay_ra}}&vi_tri_cu_the={{vi_tri_cu_the}}&thoi_gian_xay_ra={{thoi_gian_xay_ra}}&mo_ta={{mo_ta}}&de_xuat_giai_phap={{de_xuat_giai_phap}}&xu_ly_ban_dau={{xu_ly_ban_dau}}&thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem={{thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem}}&ghi_nhan_ho_so={{ghi_nhan_ho_so}}&thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho={{thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho}}&thong_bao_cho_nguoi_benh={{thong_bao_cho_nguoi_benh}}&phan_loai_ban_dau={{phan_loai_ban_dau}}&danh_gia_ban_dau={{danh_gia_ban_dau}}&ho_ten_nguoi_bao_cao={{ho_ten_nguoi_bao_cao}}&so_dien_thoai_nguoi_bao_cao={{so_dien_thoai_nguoi_bao_cao}}&email_nguoi_bao_cao={{email_nguoi_bao_cao}}&chuc_danh_nguoi_bao_cao={{chuc_danh_nguoi_bao_cao}}&nguoi_chung_kien_1={{nguoi_chung_kien_1}}&nguoi_chung_kien_2={{nguoi_chung_kien_2}}">In báo cáo</a></p>
+      <p><a href="{{url_for('homepage')}}get_pdf?id={{id}}&hinh_thuc={{hinh_thuc}}&ngay_bao_cao={{ngay_bao_cao}}&don_vi_bao_cao={{don_vi_bao_cao}}&ho_ten_nguoi_benh={{ho_ten_nguoi_benh}}&so_benh_an={{so_benh_an}}&ngay_sinh={{ngay_sinh}}&gioi_tinh={{gioi_tinh}}&doi_tuong={{doi_tuong}}&khoa_phong={{khoa_phong}}&vi_tri_xay_ra={{vi_tri_xay_ra}}&vi_tri_cu_the={{vi_tri_cu_the}}&thoi_gian_xay_ra={{thoi_gian_xay_ra}}&mo_ta={{mo_ta}}&de_xuat_giai_phap={{de_xuat_giai_phap}}&xu_ly_ban_dau={{xu_ly_ban_dau}}&thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem={{thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem}}&ghi_nhan_ho_so={{ghi_nhan_ho_so}}&thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho={{thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho}}&thong_bao_cho_nguoi_benh={{thong_bao_cho_nguoi_benh}}&phan_loai_ban_dau={{phan_loai_ban_dau}}&danh_gia_ban_dau={{danh_gia_ban_dau}}&ho_ten_nguoi_bao_cao={{ho_ten_nguoi_bao_cao}}&so_dien_thoai_nguoi_bao_cao={{so_dien_thoai_nguoi_bao_cao}}&email_nguoi_bao_cao={{email_nguoi_bao_cao}}&chuc_danh_nguoi_bao_cao={{chuc_danh_nguoi_bao_cao}}&nguoi_chung_kien_1={{nguoi_chung_kien_1}}&nguoi_chung_kien_2={{nguoi_chung_kien_2}}">In báo cáo</a></p>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -26,7 +26,8 @@
       <p>Đối tượng: {{doi_tuong}}</p>
       <p>Vị trí xảy ra: {{vi_tri_xay_ra}}</p>
       <p>Vị trí cụ thể: {{vi_tri_cu_the}}</p>
-      <p>Thời gian xảy ra: {{thoi_gian_xay_ra}}</p>
+      {% set time = thoi_gian_xay_ra | string %}
+      <p>Thời gian xảy ra: {{time[8:10]}} giờ {{time[10:12]}} phút, ngày {{time[6:8]}} tháng{{time[4:6]}} năm {{time[:4]}}</p>
       <p>Mô tả ngắn gọn: {{mo_ta}}</p>
       <p>Đề xuất giải pháp: {{de_xuat_giai_phap}}</p>
       <p>Xử lý ban đầu: {{xu_ly_ban_dau}}</p>

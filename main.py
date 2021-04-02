@@ -1,13 +1,15 @@
 from schema import *
+from init import *
 from my_classes import MyResponse
 from create_report import create_pdf
 import sql
+import my_email
 import io
 from typing import Optional, List
 import datetime as dt
 import csv
 import os
-from fastapi import (FastAPI, Request, Form,
+from fastapi import (FastAPI, Request, Form, Query,
                      status, Depends, HTTPException,
                      UploadFile, File, Header,
                      BackgroundTasks)
@@ -24,10 +26,10 @@ app = FastAPI(
     description='''Server API, có thể test với <br>{superuser="admin", password="12345"}
 <ul>Chức năng:
 <li>Tạo superuser, basic user. Quản lý user.</li>
-<li>Lưu trữ bằng database sqlite.</li>
-<li>Form báo cáo, gửi về hệ thống lưu trữ.</li>
-<li>Quản lý báo cáo.</li>
-<li>Tạo file pdf, tải về CSV để phân tích.</li>
+<li>Form báo cáo, gửi về hệ thống lưu trữ bằng sqlite database.</li>
+<li>Quản lý báo cáo (nhanh và đầy đủ).</li>
+<li>Báo cáo nhanh cho upload file, hình hoặc video.</li>
+<li>Báo cáo đầy đủ cho tạo file pdf, tải về CSV để phân tích.</li>
 <li>Cổng dữ liệu API để liên kết với hệ thống dashboard.</li>
 </ul>''',
     version="0.1",)
@@ -76,7 +78,7 @@ async def startup():
         sql.create_db()
 
 
-@app.get("/", summary="Form báo cáo", tags=['Giao diện'], name='homepage')
+@app.get("/", summary="Form báo cáo", tags=['Giao diện chính'], name='homepage')
 async def root(request: Request):
     '''Giao diện form báo cáo chính'''
     return templates.TemplateResponse(
@@ -121,9 +123,10 @@ async def delete_user(username: str, super_authen: str = Depends(super_authen)):
         )
 
 
-@app.post("/create_report", summary="Gửi báo cáo đầy đủ", status_code=status.HTTP_201_CREATED, tags=['Giao diện'])
+@app.post("/create_report", summary="Gửi báo cáo đầy đủ", status_code=status.HTTP_201_CREATED, tags=['Báo cáo đầy đủ'])
 async def create_report(
         request: Request,
+        background_tasks: BackgroundTasks,
         hinh_thuc: Hinh_Thuc = Form(..., description="Hình thức báo cáo sự cố"),
         ngay_bao_cao: dt.date = Form(..., description="Ngày báo cáo sự cố, định dạng YYYY-MM-DD"),
         don_vi_bao_cao: Khoa_Phong = Form(..., description="Đơn vị báo cáo là các khoa phòng trong bệnh viện"),
@@ -185,11 +188,12 @@ async def create_report(
         data['chuc_danh_nguoi_bao_cao'] = chuc_danh_khac
     lastrowid = sql.create_report(data)
     data.update({'id': lastrowid, 'request': request})
+    background_tasks.add_task(my_email.sendmail, "đầy đủ", data)
     return templates.TemplateResponse(
         "create_report.html", data)
 
 
-@app.post("/create_quick_report", summary="Gửi báo cáo nhanh", status_code=status.HTTP_201_CREATED, tags=['Giao diện'])
+@app.post("/create_quick_report", summary="Gửi báo cáo nhanh", status_code=status.HTTP_201_CREATED, tags=['Báo cáo nhanh'])
 async def create_quick_report(
         request: Request,
         background_tasks: BackgroundTasks,
@@ -212,13 +216,14 @@ async def create_quick_report(
         "xu_ly_ban_dau1": xu_ly_ban_dau1,
         "gui_tai_lieu": gui_tai_lieu}
     filepaths, lastrowid = sql.create_quick_report(data)
-    background_tasks.add_task(sql.convert_video, filepaths)
     data.update({'id': lastrowid, 'request': request})
+    background_tasks.add_task(sql.convert_video, filepaths)
+    background_tasks.add_task(my_email.sendmail, "nhanh", data)
     return templates.TemplateResponse(
         "create_quick_report.html", data)
 
 
-@app.get("/get_report/{id}", summary="Xem báo cáo đầy đủ theo id", tags=['Giao diện', 'Báo cáo'])
+@app.get("/get_report/{id}", summary="Xem báo cáo đầy đủ theo id", tags=['Báo cáo đầy đủ'])
 async def get_report(request: Request, id: int, username: str = Depends(authen)):
     '''Xem báo cáo đầy đủ trên trang web, kèm theo link tạo pdf'''
     data = sql.get_report(id)
@@ -233,7 +238,7 @@ async def get_report(request: Request, id: int, username: str = Depends(authen))
         )
 
 
-@app.get("/get_quick_report/{id}", summary="Xem báo cáo nhanh theo id", tags=['Giao diện', 'Báo cáo'])
+@app.get("/get_quick_report/{id}", summary="Xem báo cáo nhanh theo id", tags=['Báo cáo nhanh'])
 async def get_quick_report(request: Request, id: int, username: str = Depends(authen)):
     '''Xem báo cáo nhanh theo ID, hiện thị bằng trang web, có hiển thị video, hình ảnh'''
     data = sql.get_quick_report(id)
@@ -252,21 +257,9 @@ async def get_quick_report(request: Request, id: int, username: str = Depends(au
         )
 
 
-@app.get("/get_upload_file/{filename}", summary="Xem tài liệu hình ảnh, video",
-         tags=['Báo cáo'])
-async def get_upload_file(request: Request, filename: str,
-                          username: str = Depends(authen)):
-    '''Dùng đẻ tải file tài liệu vào trang *get_quick_report*'''
-    full_path = os.path.join(sql.gui_tai_lieu_folder, filename)
-    if not full_path.lower().endswith('mp4'):
-        return FileResponse(full_path)
-    else:
-        return MyResponse(full_path, request)
-
-
 @app.delete("/delete_report/{id}",
             summary="Xoá báo cáo đầy đủ theo ID (cần đăng nhập superuser)",
-            tags=['Báo cáo'])
+            tags=['Báo cáo đầy đủ'])
 async def delete_report(id: int, username: str = Depends(super_authen)):
     '''Xoá báo cáo đầy đủ theo ID'''
     rowcount = sql.delete_report(id)
@@ -281,7 +274,7 @@ async def delete_report(id: int, username: str = Depends(super_authen)):
 
 @app.delete("/delete_quick_report/{id}",
             summary="Xoá báo cáo nhanh theo ID (cần đăng nhập superuser)",
-            tags=['Báo cáo'])
+            tags=['Báo cáo nhanh'])
 async def delete_quick_report(id: int, username: str = Depends(super_authen)):
     '''Xoá báo cáo nhanh theo ID'''
     rowcount = sql.delete_quick_report(id)
@@ -294,36 +287,48 @@ async def delete_quick_report(id: int, username: str = Depends(super_authen)):
         )
 
 
-@app.get("/get_pdf", summary="Tạo đơn báo cáo sự cố", tags=["Tạo file"])
+@app.get("/get_upload_file", summary="Xem tài liệu hình ảnh, video",
+         tags=['File'])
+async def get_upload_file(request: Request, filename: str,
+                          username: str = Depends(authen)):
+    '''Dùng đẻ tải file tài liệu vào trang *get_quick_report*'''
+    full_path = os.path.join(tai_lieu_folder, filename)
+    if not full_path.lower().endswith('mp4'):
+        return FileResponse(full_path)
+    else:
+        return MyResponse(full_path, request)
+
+
+@app.get("/get_pdf", summary="Tạo đơn báo cáo sự cố", tags=["File"])
 async def get_pdf(
-        id: int,
-        hinh_thuc: str,
-        ngay_bao_cao: str,
-        don_vi_bao_cao: str,
-        ho_ten_nguoi_benh: str,
-        so_benh_an: str,
-        ngay_sinh: str,
-        gioi_tinh: str,
-        doi_tuong: str,
-        khoa_phong: str,
-        vi_tri_xay_ra: str,
-        vi_tri_cu_the: str,
-        thoi_gian_xay_ra: str,
-        mo_ta: str,
-        de_xuat_giai_phap: str,
-        xu_ly_ban_dau: str,
-        thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem: str,
-        ghi_nhan_ho_so: str,
-        thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho: str,
-        thong_bao_cho_nguoi_benh: str,
-        phan_loai_ban_dau: str,
-        danh_gia_ban_dau: str,
-        ho_ten_nguoi_bao_cao: str,
-        so_dien_thoai_nguoi_bao_cao: str,
-        email_nguoi_bao_cao: str,
-        chuc_danh_nguoi_bao_cao: str,
-        nguoi_chung_kien_1: str,
-        nguoi_chung_kien_2: str):
+        id: Optional[int] = Query(-1),
+        hinh_thuc: Optional[str] = Query(""),
+        ngay_bao_cao: Optional[str] = Query(""),
+        don_vi_bao_cao: Optional[str] = Query(""),
+        ho_ten_nguoi_benh: Optional[str] = Query(""),
+        so_benh_an: Optional[str] = Query(""),
+        ngay_sinh: Optional[str] = Query(""),
+        gioi_tinh: Optional[str] = Query(""),
+        doi_tuong: Optional[str] = Query(""),
+        khoa_phong: Optional[str] = Query(""),
+        vi_tri_xay_ra: Optional[str] = Query(""),
+        vi_tri_cu_the: Optional[str] = Query(""),
+        thoi_gian_xay_ra: Optional[str] = Query(""),
+        mo_ta: Optional[str] = Query(""),
+        de_xuat_giai_phap: Optional[str] = Query(""),
+        xu_ly_ban_dau: Optional[str] = Query(""),
+        thong_bao_cho_bac_si_hoac_nguoi_chiu_trach_nhiem: Optional[str] = Query(""),
+        ghi_nhan_ho_so: Optional[str] = Query(""),
+        thong_bao_cho_nguoi_nha_hoac_nguoi_bao_ho: Optional[str] = Query(""),
+        thong_bao_cho_nguoi_benh: Optional[str] = Query(""),
+        phan_loai_ban_dau: Optional[str] = Query(""),
+        danh_gia_ban_dau: Optional[str] = Query(""),
+        ho_ten_nguoi_bao_cao: Optional[str] = Query(""),
+        so_dien_thoai_nguoi_bao_cao: Optional[str] = Query(""),
+        email_nguoi_bao_cao: Optional[str] = Query(""),
+        chuc_danh_nguoi_bao_cao: Optional[str] = Query(""),
+        nguoi_chung_kien_1: Optional[str] = Query(""),
+        nguoi_chung_kien_2: Optional[str] = Query("")):
     '''Tạo file pdf từ các tham số query, mẫu theo Bộ Y Tế'''
     data = {
         "id": id,
@@ -362,7 +367,7 @@ async def get_pdf(
     return response
 
 
-@app.get("/get_csv", summary="Tải data (csv) về", tags=["Tạo file"])
+@app.get("/get_csv", summary="Tải data (csv) về", tags=["File"])
 async def get_csv(
         download: Optional[bool] = False,
         start: Optional[dt.date] = dt.date(dt.date.today().year, 1, 1),
@@ -385,3 +390,36 @@ async def get_csv(
         response.headers["Content-Disposition"] = "attachment; filename=bao_cao_su_co.csv"
     return response
 
+
+@app.post("/add_email", summary="Thêm địa chỉ email nhận thông báo", tags=["Email"])
+async def add_email(
+        email_: EmailStr = Query(..., description="email cần thêm vào"),
+        username: str = Depends(authen)):
+    '''Thêm địa chỉ email vào danh sách nhận thông báo khi có báo cáo mới'''
+    if my_email.add_receiver_email(email_):
+        return {'add_email': 'succeed'}
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="email already in receiver list"
+        )
+
+
+@app.get("/get_emails", summary="Xem danh sách địa chỉ email nhận thông báo", tags=['Email'])
+async def get_emails(username: str = Depends(authen)):
+    '''Xem danh sách địa chỉ email nhận thông báo khi có báo cáo mới.'''
+    return {'receiver_email_list': my_email.get_receiver_emails()}
+
+
+@app.delete("/remove_email", summary="Xoá địa chỉ email nhận thông báo", tags=["Email"])
+async def remove_email(
+        email_: EmailStr = Query(..., description="email cần xoá"),
+        username: str = Depends(authen)):
+    '''Xoá địa chỉ email trong danh sách nhận thông báo khi có báo cáo mới'''
+    if my_email.remove_receiver_email(email_):
+        return {'remove_email': 'succeed'}
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="email not in receiver list"
+        )
