@@ -28,13 +28,15 @@
 
 {% block script %}
 <script>
-const nbc = document.getElementById("ngay_bao_cao")
+const ngbc = document.getElementById("ngay_gio_bao_cao")
+const ngbc1 = document.getElementById("ngay_gio_bao_cao1")
 let today = new Date()
-nbc.value = today.toISOString().slice(0,10);
-
-const nbc1 = document.getElementById("ngay_gio_bao_cao1")
-nbc1.value = today.toLocaleDateString() + " " + today.toTimeString().slice(0,5);
-nbc1.onchange = (event) => {
+ngbc.value = today.toLocaleDateString() + " " + today.toTimeString().slice(0,5);
+ngbc1.value = today.toLocaleDateString() + " " + today.toTimeString().slice(0,5);
+ngbc.onchange = (event) => {
+  event.target.value = event.target.value.substr(0, 16);
+};
+ngbc1.onchange = (event) => {
   event.target.value = event.target.value.substr(0, 16);
 };
 
@@ -46,7 +48,7 @@ cdnbc.onchange = (event) => {
   else {y.display='none'}
 };
 
-const sclq = document.getElementById("su_co_lien_quan1")
+const sclq = document.getElementById("su_co_lien_quan")
 sclq.onchange = (event) => {
   const y = document.getElementById("su_co_lien_quan_khac_div").style;
   if (sclq.value ==="Khác") {y.display='flex'}

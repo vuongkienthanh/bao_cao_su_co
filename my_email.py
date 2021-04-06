@@ -1,55 +1,49 @@
-from init import config_path
-import json
+import sql
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-# config
-cf = json.load(open(config_path, mode="r", encoding='utf-8'))
+import os
 
 
-# set up the SMTP server
+def is_OK():
+    return os.environ['EMAIL_NOTIFICATION'] == 'ON'
+
+
 def mail(func):
-    def inner(typ, data):
-        s = smtplib.SMTP(host=cf['server_host'], port=cf['server_port'])
+    def inner(data):
+        s = smtplib.SMTP(host=os.environ['email_server_host'], port=os.environ['email_server_port'])
         s.starttls()
-        s.login(cf['login_user'], cf['login_password'])
+        s.login(os.environ['sender_user'], os.environ['sender_password'])
         s.ehlo_or_helo_if_needed()
-        func(s, typ, data)
+        func(s, data)
         s.quit()
     return inner
 
 
 @mail
-def sendmail(s, typ, data):
+def sendmail(s, data):
+    ls = sql.get_emails()
     msg = MIMEMultipart()
-    msg['From'] = cf['sender_email']
-    msg['To'] = ';'.join(cf['receiver_email'])
+    msg['From'] = os.environ['sender_email']
+    msg['To'] = ';'.join(ls)
     msg['Subject'] = "Bạn nhận được báo cáo mới"
-    message = f"Bạn nhận được báo cáo {typ} mới với ID là {data['id']}.\n" +\
+    message = f"Bạn nhận được báo cáo mới với ID là {data['id']}.\n" +\
         f"Bạn có thể xem tại đây: {data['request'].url_for('homepage')}" +\
-        f"{'get_quick_report' if typ=='nhanh' else 'get_report'}" +\
-        f"/{data['id']}"
+        f"get_report/{data['id']}"
     msg.attach(MIMEText(message, 'plain'))
-    for receiver in cf['receiver_email']:
-        s.sendmail(cf['sender_email'], receiver, msg.as_string())
+    for receiver in ls:
+        s.sendmail(os.environ['sender_email'], receiver, msg.as_string())
 
 
 def get_receiver_emails():
-    return cf['receiver_email']
+    return [x for s in sql.get_emails() for x in s]
 
 
 def add_receiver_email(email_):
-    global cf
-    if not (email_ in cf['receiver_email']):
-        cf['receiver_email'].append(email_)
-        json.dump(cf, config_path)
+    if sql.add_email(email_):
         return True
 
 
 def remove_receiver_email(email_):
-    global cf
-    if (email_ in cf['receiver_email']):
-        cf['receiver_email'].remove(email_)
-        json.dump(cf, config_path)
+    if sql.remove_email(email_):
         return True

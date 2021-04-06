@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block main %}
+<main class="container-fluid">
+<div class="row justify-content-center pt-3"> 
+  <h1 class="mb-3" style='color: black; font-weight: bold;'>Tìm hiểu và phân tích sự cố</h1>
+    <form class="col-md-8 col-lg-6 col-11" method='post' action="{{url_for('homepage')}}create_thptsc" enctype="multipart/form-data" autocomplete='off'>
+    <h4 class='col-3 my-3'>Mã số sự cố: {{id}}</h4>
+
+{% if in_thptsc_db == True %}<p class="mb-3"><a href="{{url_for('homepage')}}get_pdf_thptsc?id={{id}}&mo_ta={{mo_ta if mo_ta}}&vi_tri_xay_ra={{vi_tri_xay_ra if vi_tri_xay_ra}}&thoi_gian_xay_ra={{thoi_gian_xay_ra if thoi_gian_xay_ra}}&v1a={{v1a}}&v1b={{v1b}}&v1c={{v1c}}&v1d={{v1d}}&v1e={{v1e}}&v1f={{v1f}}&v1g={{v1g}}&v1h={{v1h}}&v1i={{v1i}}&v2a={{v2a}}&v2b={{v2b}}&v2c={{v2c}}&v2d={{v2d}}&v2e={{v2e}}&v3a={{v3a}}&v3b={{v3b}}&v3c={{v3c}}&v3d={{v3d}}&v3e={{v3e}}&v3f={{v3f}}&v3g={{v3g}}&v3h={{v3h}}&v3i={{v3i}}&v4a={{v4a}}&v4b={{v4b}}&v4c={{v4c}}&v5a={{v5a}}&v5b={{v5b}}&v5c={{v5c}}&v6a={{v6a}}&v6b={{v6b}}&v6c={{v6c}}&v6d={{v6d}}&v6e={{v6e}}&v6f={{v6f}}&v7={{v7}}&v8a={{v8a}}&v8b={{v8b}}&v9a={{v9a}}&v9b={{v9b}}&v9c={{v9c}}&v10a={{v10a}}&v10b={{v10b}}&v10c={{v10c}}&v10d={{v10d}}&v10e={{v10e}}&v10f={{v10f}}&v10g={{v10g}}&v11={{v11}}&xu_ly={{xu_ly if xu_ly}}&v12a={{v12a}}&v12b={{v12b}}&v12c={{v12c}}&v12d={{v12d}}&v12e={{v12e}}&v12f={{v12f}}&v13a={{v13a}}&v13b={{v13b}}&v13c={{v13c}}&v13d={{v13d}}&v13e={{v13e}}&v13f={{v13f}}&v14a={{v14a}}&v14b={{v14b}}&v14c={{v14c}}&v14d={{v14d}}&v15a={{v15a}}&v15b={{v15b}}&v15c={{v15c}}&v15d={{v15d}}&v16a={{v16a}}&v16b={{v16b}}&v16c={{v16c}}&v17={{v17}}&khac_phuc={{khac_phuc if khac_phuc}}&de_xuat={{de_xuat if de_xuat}}&danh_gia={{danh_gia if danh_gia}}&v18={{v18}}&v19a={{v19a if v19a}}&v19b={{v19b}}&v20={{v20}}&v21a={{v21a}}&v21b={{v21b}}&v21c={{v21c}}&v21d={{v21d}}&v21e={{v21e}}&v21f={{v21f}}&v21g={{v21g}}&ngay_gio={{ngay_gio}}">In PDF tìm hiểu và phân tích sự cố</a></p>
+{% endif %}
+
+    <input name='id' id='id' value="{{id}}" style='display:none;'>
+    <h2 class='mb-3'>A. Dành cho nhân viên chuyên trách</h2>
+    <h4 class='mb-3'>I. Mô tả chi tiết sự cố</h4>
+    <textarea class='form-control mb-3' name="mo_ta" rows=5 placeholder="(Mô tả cả xử lý tức thời và hậu quả. Đối với loét tỳ đè, chỉ ra cụ thể vị trí, bên, phạm vi và tình trạng lúc nhập viện. Đối với sai sót về thuốc, liệt kê rõ tất cả thuốc (đính kèm thêm 1 tờ liệt kê nếu cần)">{{mo_ta if mo_ta}}</textarea>
+    <h4 class='mb-3'>II. Phân loại sự cố theo nhóm sự cố (Incident type)</h4>
+    <p class='mb-1'>1.Thực hiện quy trình kỹ thuật, thủ thuật chuyên môn</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1a" name="v1a" {{'checked' if v1a==1}} >
+      <label class="form-check-label" for="1a">Không có sự đồng ý của người bệnh/người nhà (đối với những kỹ thuật, thủ thuật quy định phải ký cam kết)</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1b" name="v1b" {{'checked' if v1b==1}}>
+      <label class="form-check-label" for="1b">Không thực hiện khi có chỉ định</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1c" name="v1c" {{'checked' if v1c==1}}>
+      <label class="form-check-label" for="1c">Thực hiện sai người bệnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1d" name="v1d" {{'checked' if v1d==1}}>
+      <label class="form-check-label" for="1d">Thực hiện sai thủ thuật/quy trình/ phương pháp điều trị</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1e" name="v1e" {{'checked' if v1e==1}}>
+      <label class="form-check-label" for="1e">Thực hiện sai vị trí phẫu thuật/thủ thuật</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1f" name="v1f" {{'checked' if v1f==1}}>
+      <label class="form-check-label" for="1f">Bỏ sót dụng cụ, vật tư tiêu hao trong quá trình phẫu thuật</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1g" name="v1g" {{'checked' if v1g==1}}>
+      <label class="form-check-label" for="1g">Tử vong trong thai kỳ</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1h" name="v1h" {{'checked' if v1h==1}}>
+      <label class="form-check-label" for="1h">Tử vong khi sinh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v1i" name="v1i" {{'checked' if v1i==1}}>
+      <label class="form-check-label" for="1i">Tử vong sơ sinh</label>
+    </div>
+    <p class='mt-3 mb-1'>2. Nhiễm khuẩn bệnh viện</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v2a" name="v2a" {{'checked' if v2a==1}}>
+      <label class="form-check-label" for="2a">Nhiễm khuẩn huyết</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v2b" name="v2b" {{'checked' if v2b==1}}>
+      <label class="form-check-label" for="2b">Nhiễm khuẩn vết mổ</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v2c" name="v2c" {{'checked' if v2c==1}}>
+      <label class="form-check-label" for="2c">Viêm phổi </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v2d" name="v2d" {{'checked' if v2d==1}}>
+      <label class="form-check-label" for="2d">Nhiễm khuẩn tiết niệu</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v2e" name="v2e" {{'checked' if v2e==1}}>
+      <label class="form-check-label" for="2e">Các loại nhiễm khuẩn khác</label>
+    </div>
+    <p class="mt-3 mb-1">3. Thuốc và dịch truyền</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3a" name="v3a" {{'checked' if v3a==1}}>
+      <label class="form-check-label" for="3a">Cấp phát sai thuốc, dịch truyền </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3b" name="v3b" {{'checked' if v3b==1}}>
+      <label class="form-check-label" for="3b">Bỏ sót thuốc/liều thuốc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3c" name="v3c" {{'checked' if v3c==1}}>
+      <label class="form-check-label" for="3c">Thiếu thuốc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3d" name="v3d" {{'checked' if v3d==1}}>
+      <label class="form-check-label" for="3d">Sai thuốc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3e" name="v3e" {{'checked' if v3e==1}}>
+      <label class="form-check-label" for="3e">Sai liều, sai hàm lượng</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3f" name="v3f" {{'checked' if v3f==1}}>
+      <label class="form-check-label" for="3f">Sai người bệnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3g" name="v3g" {{'checked' if v3g==1}}>
+      <label class="form-check-label" for="3g">Sai thời gian </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3h" name="v3h" {{'checked' if v3h==1}}>
+      <label class="form-check-label" for="3h">Sai đường dùng</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v3i" name="v3i" {{'checked' if v3i==1}}>
+      <label class="form-check-label" for="3i">Sai y lệnh</label>
+    </div>
+    <p class="mt-3 mb-1">4. Máu và các chế phẩm máu</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v4a" name="v4a" {{'checked' if v3a==1}}>
+      <label class="form-check-label" for="4a">Phản ứng phụ, tai biến khi truyền máu</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v4b" name="v4b" {{'checked' if v4b==1}}>
+      <label class="form-check-label" for="4b">Truyền nhầm máu, chế phẩm máu</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v4c" name="v4c" {{'checked' if v4c==1}}>
+      <label class="form-check-label" for="4c">Truyền sai liều, sai thời điểm</label>
+    </div>
+    <p class="mt-3 mb-1">5. Thiết bị y tế</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v5a" name="v5a" {{'checked' if v5a==1}}>
+      <label class="form-check-label" for="5a">Thiếu thông tin hướng dẫn sử dụng</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v5b" name="v5b" {{'checked' if v5b==1}}>
+      <label class="form-check-label" for="5b">Lỗi thiết bị</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v5c" name="v5c" {{'checked' if v5c==1}}>
+      <label class="form-check-label" for="5c">Thiết bị thiếu hoặc không phù hợp</label>
+    </div>
+    <p class="mt-3 mb-1">6. Hành vi</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6a" name="v6a" {{'checked' if v6a==1}}>
+      <label class="form-check-label" for="6a">Khuynh hướng tự gây hại, tự tử</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6b" name="v6b" {{'checked' if v6b==1}}>
+      <label class="form-check-label" for="6b">Có hành động tử tự</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6c" name="v6c" {{'checked' if v6c==1}}>
+      <label class="form-check-label" for="6c">Quấy rối tình dục bởi nhân viên</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6d" name="v6d" {{'checked' if v6d==1}}>
+      <label class="form-check-label" for="6d">Trốn viện</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6e" name="v6e" {{'checked' if v6e==1}}>
+      <label class="form-check-label" for="6e">Quấy rối tình dục bởi người bệnh/khách đến thăm</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v6f" name="v6f" {{'checked' if v6f==1}}>
+      <label class="form-check-label" for="6f">Xâm hại cơ thể bởi người bệnh/khách đến thăm</label>
+    </div>
+    <p class="mt-3 mb-1">7. Tai nạn đối với người bệnh</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v7" name="v7" {{'checked' if v7==1}}>
+      <label class="form-check-label" for="7">Té ngã</label>
+    </div>
+    <p class="mt-3 mb-1">8. Hạ tầng cơ sở</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v8a" name="v8a" {{'checked' if v8a==1}}>
+      <label class="form-check-label" for="8a">Bị hư hỏng, bị lỗi</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v8b" name="v8b" {{'checked' if v8b==1}}>
+      <label class="form-check-label" for="8b">Thiếu hoặc không phù hợp</label>
+    </div>
+    <p class="mt-3 mb-1">9. Quản lý nguồn lực, tổ chức</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v9a" name="v9a" {{'checked' if v9a==1}}>
+      <label class="form-check-label" for="9a">Tính phù hợp, đầy đủ của dịch vụ khám bệnh, chữa bệnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v9b" name="v9b" {{'checked' if v9b==1}}>
+      <label class="form-check-label" for="9b">Tính phù hợp, đầy đủ của nguồn lực</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v9c" name="v9c" {{'checked' if v9c==1}}>
+      <label class="form-check-label" for="9c">Tính phù hợp, đầy đủ của chính sách, quy định, quy trình, hướng dẫn chuyên môn</label>
+    </div>
+    <p class="mt-3 mb-1">10. Hồ sơ, tài liệu, thủ tục, hành chính</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10a" name="v10a" {{'checked' if v10a==1}}>
+      <label class="form-check-label" for="10a">Tài liệu mất hoặc thiếu</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10b" name="v10b" {{'checked' if v10b==1}}>
+      <label class="form-check-label" for="10b">Cung cấp hồ sơ tài liệu chậm</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10c" name="v10c" {{'checked' if v10c==1}}>
+      <label class="form-check-label" for="10c">Tài liệu không rõ ràng, không hoàn chỉnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10d" name="v10d" {{'checked' if v10d==1}}>
+      <label class="form-check-label" for="10d">Nhầm hồ sơ tài liệu</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10e" name="v10e" {{'checked' if v10e==1}}>
+      <label class="form-check-label" for="10e">Thời gian chờ đợi kéo dài</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v10f" name="v10f" {{'checked' if v10f==1}}>
+      <label class="form-check-label" for="10f">Thủ tục hành chính phức tạp</label>
+    </div>
+    <p class="mt-3 mb-1">11. Khác</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v11" name="v11" {{'checked' if v11==1}}>
+      <label class="form-check-label" for="11">Các sự cố không đề cập trong các mục 1 đến 10</label>
+    </div>
+
+    <h3 class='my-3'>III. Điều trị/y lệnh đã được thực hiện</h3>
+    <textarea class='form-control' name="xu_ly" rows=5>{{xu_ly if xu_ly else xu_ly_ban_dau}}</textarea>
+
+    <h3 class='my-3'>IV. Phân loại sự cố theo nhóm nguyên nhân gây ra sự cố</h3>
+    <p class="mb-1">1. Nhân viên</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12a" name="v12a" {{'checked' if v12a==1}}>
+      <label class="form-check-label" for="12a">Nhận thức (kiến thức, hiểu biết, quan niệm)</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12b" name="v12b" {{'checked' if v12b==1}}>
+      <label class="form-check-label" for="12b">Thực hành (kỹ năng thực hành không đúng quy định, hướng dẫn chuẩn hoặc thực hành theo quy định, hướng dẫn sai)</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12c" name="v12c" {{'checked' if v12c==1}}>
+      <label class="form-check-label" for="12c">Thái độ, hành vi cảm xúc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12d" name="v12d" {{'checked' if v12d==1}}>
+      <label class="form-check-label" for="12d">Giao tiếp</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12e" name="v12e" {{'checked' if v12e==1}}>
+      <label class="form-check-label" for="12e">Tâm sinh lý, thể chất, bệnh lý</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v12f" name="v12f" {{'checked' if v12f==1}}>
+      <label class="form-check-label" for="12f">Các yếu tố xã hội</label>
+    </div>
+    <p class="mt-3 mb-1">2. Người bệnh</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13a" name="v13a" {{'checked' if v13a==1}}>
+      <label class="form-check-label" for="13a">Nhận thức (kiến thức, hiểu biết, quan niệm)</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13b" name="v13b" {{'checked' if v13b==1}}>
+      <label class="form-check-label" for="13b">Thực hành (kỹ năng thực hành không đúng quy định, hướng dẫn chuẩn hoặc thực hành theo quy định, hướng dẫn sai)</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13c" name="v13c" {{'checked' if v13c==1}}>
+      <label class="form-check-label" for="13c">Thái độ, hành vi cảm xúc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13d" name="v13d" {{'checked' if v13d==1}}>
+      <label class="form-check-label" for="13d">Giao tiếp</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13e" name="v13e" {{'checked' if v13e==1}}>
+      <label class="form-check-label" for="13e">Tâm sinh lý, thể chất, bệnh lý</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v13f" name="v13f" {{'checked' if v13f==1}}>
+      <label class="form-check-label" for="13f">Các yếu tố xã hội</label>
+    </div>
+    <p class="mt-3 mb-1">3. Môi trường làm việc</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v14a" name="v14a" {{'checked' if v14a==1}}>
+      <label class="form-check-label" for="14a">Cơ sở vật chất, hạ tầng, trang thiết bị</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v14b" name="v14b" {{'checked' if v14b==1}}>
+      <label class="form-check-label" for="14b">Khoảng cách đến nơi làm việc quá xa</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v14c" name="v14c" {{'checked' if v14c==1}}>
+      <label class="form-check-label" for="14c">Đánh giá về độ an toàn, các nguy cơ rủi ro của môi trường làm việc</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v14d" name="v14d" {{'checked' if v14d==1}}>
+      <label class="form-check-label" for="14d">Nội quy, quy định và các đặc tính kỹ thuật</label>
+    </div>
+    <p class="mt-3 mb-1">4. Tổ chức/dịch vụ</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v15a" name="v15a" {{'checked' if v15a==1}}>
+      <label class="form-check-label" for="15a">Các chính sách, quy trình, hướng dẫn chuyên môn</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v15b" name="v15b" {{'checked' if v15b==1}}>
+      <label class="form-check-label" for="15b">Tuân thủ quy trình thực hành chuẩn</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v15c" name="v15c" {{'checked' if v15c==1}}>
+      <label class="form-check-label" for="15c">Văn hoá tổ chức</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v15d" name="v15d" {{'checked' if v15d==1}}>
+      <label class="form-check-label" for="15d">Làm việc nhóm</label>
+    </div>
+    <p class="mt-3 mb-1">5. Yếu tố bên ngoài</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v16a" name="v16a" {{'checked' if v16a==1}}>
+      <label class="form-check-label" for="16a">Môi trường tự nhiên</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v16b" name="v16b" {{'checked' if v16b==1}}>
+      <label class="form-check-label" for="16b">Sản phẩm, công nghệ và cơ sở hạ  tầng</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v16c" name="v16c"{{'checked' if v16c==1}}>
+      <label class="form-check-label" for="16c">Quy trình, hệ thống dịch vụ</label>
+    </div>
+    <p class="mt-3 mb-1">6. Khác</p>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v17" name="v17" {{'checked' if v17==1}}>
+      <label class="form-check-label" for="17">Các yếu tố không đề cập trong các mục từ 1 đến 5</label>
+    </div>
+    
+    <h4 class='my-3'>V. Hành động khắc phục sự cố</h4>
+    <textarea class="form-control" name="khac_phuc" rows=5 placeholder="Mô tả hành động xử lý sự cố">{{khac_phuc if khac_phuc}}</textarea>
+    <h4 class='my-3'>VI. Đề xuất khuyến cáo phòng ngừa sự cố</h4>
+    <textarea class="form-control" name="de_xuat" rows=5 placeholder="Ghi đề xuất khuyến cáo phòng ngừa">{{de_xuat if de_xuat}}</textarea>
+    <hr>
+    <h2 class='mb-3'>B. Dành cho cấp quản lý</h2>
+    <h4 class='mb-3'>I. Đánh giá của Trưởng nhóm chuyên gia</h4>
+    <textarea class="form-control" name="danh_gia" rows=5 placeholder="Mô tả kết quả phá hiện được (không lặp lại các mô tả sự cố)">{{danh_gia if danh_gia}}</textarea>
+    <p class="mb-1">Đã đưa ra khuyến cáo/hướng xử lý với người báo cáo</p>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v18" id="v18a" value="Có" {{'checked' if v18=='Có'}}>
+      <label class="form-check-label" for="18a">Có</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v18" id="v18b" value="Không" {{'checked' if v18=='Không'}}>
+      <label class="form-check-label" for="18b">Không</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v18" id="v18c" value="Không ghi nhận" {{'checked' if v18=='Không ghi nhận'}}>
+      <label class="form-check-label" for="18c">Không ghi nhận</label>
+    </div>
+    <p class="mb-1">Phù hợp với các khuyến cáo chính thức được ban hành.</p>
+    <div class='row me-2'>
+      <div class='col-4'>Ghi cụ thể khuyến cáo:</div>
+      <input class='col form-control' name="v19a" value='{{v19a if v19a}}'>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v19b" id="v19b1" value="Có" {{'checked' if v19b=='Có'}}>
+      <label class="form-check-label" for="19b1">Có</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v19b" id="v19b2" value="Không" {{'checked' if v19b=='Không'}}>
+      <label class="form-check-label" for="19b2">Không</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="v19b" id="v19b3" value="Không ghi nhận" {{'checked' if v19b=='Không ghi nhận'}}>
+      <label class="form-check-label" for="19b3">Không ghi nhận</label>
+    </div>
+    <h4 class='my-3'>II. Đánh giá mức độ tổn thương</h4>
+    <h5 class="mb-1">Trên người bệnh</h5>
+    <p>1. Chưa xảy ra (NC0)</p> 
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="A" id="v20a" name="v20" {{'checked' if v20=='A'}}>
+      <label class="form-check-label" for="20a">A</label>
+    </div>
+    <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tổn thương nhẹ là tổn thương tự hồi phục hoặc không cần can thiệp điều trị.">2. Tổn thương nhẹ (NC1)</p>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="B" id="v20b" name="v20" {{'checked' if v20=='B'}}>
+      <label class="form-check-label" for="20b">B</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="C" id="v20c" name="v20" {{'checked' if v20=='C'}}>
+      <label class="form-check-label" for="20c">C</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="D" id="v20d" name="v20" {{'checked' if v20=='D'}}>
+      <label class="form-check-label" for="20d">D</label>
+    </div>
+    <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tổn thương trung bình là tổn thương đòi hỏi can thiệp điều trị, kéo dài thời gian nằm viện, ảnh hưởng đến chức năng lâu dài">3. Tổn thương trung bình (NC2)</p>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="E" id="v20e" name="v20" {{'checked' if v20=='E'}}>
+      <label class="form-check-label" for="20e">E</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="F" id="v20f" name="v20" {{'checked' if v20=='F'}}>
+      <label class="form-check-label" for="20f">F</label>
+    </div>
+    <p data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tổn thương nặng là tổn thương đòi hỏi phải cấp cứu hoặc can thiệp điều trị lớn, gây mất chức năng vĩnh viễn hoặc gây tử vong.">4. Tổn thương nặng (NC3)</p>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="G" id="v20g" name="v20" {{'checked' if v20=='G'}}>
+      <label class="form-check-label" for="20g">G</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="H" id="v20h" name="v20" {{'checked' if v20=='H'}}>
+      <label class="form-check-label" for="20h">H</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="I" id="v20i" name="v20" {{'checked' if v20=='I'}}>
+      <label class="form-check-label" for="20i">I</label>
+    </div>
+    <h5 class="my-1">Trên tổ chức</h5>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21a" name="v21a" {{'checked' if v21a==1}}>
+      <label class="form-check-label" for="21a">Tổn hại tài sản</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21b" name="v21b" {{'checked' if v21b==1}}>
+      <label class="form-check-label" for="21b">Tăng nguồn lực phục vụ cho người bệnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21c" name="v21c" {{'checked' if v21c==1}}>
+      <label class="form-check-label" for="21c">Quan tâm của truyền thông</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21d" name="v21d" {{'checked' if v21d==1}}>
+      <label class="form-check-label" for="21d">Khiếu nại của người bệnh</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21e" name="v21e" {{'checked' if v21e==1}}>
+      <label class="form-check-label" for="21e">Tổn hại danh tiếng</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21f" name="v21f" {{'checked' if v21f==1}}>
+      <label class="form-check-label" for="21f">Can thiệp của pháp luật</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="true" id="v21g" name="v21g" {{'checked' if v21g==1}}>
+      <label class="form-check-label" for="21g">Khác</label>
+    </div>
+    
+    <div class='row my-3 mx-1 align-items-center'>
+      <div class='col-2'>Ngày giờ:</div>
+      <input class='form-control col' type='datetime-local' name="ngay_gio" id="ngay_gio">
+    </div>
+    
+
+
+
+    <div class="row justify-content-center" >
+      <div class="col-6 my-3 text-center" >
+          <input class="btn btn-primary btn-lg" type="submit" value="Lưu">
+      </div>
+    </div>    
+  </form>
+</div>
+
+<div class="row justify-content-center p-3" >
+  <div class="col-md-8 col-lg-6 col-11">
+  
+
+
+
+
+
+
+
+  </div>
+
+</div>  
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+const bc = document.getElementById("ngay_gio")
+let today = new Date()
+bc.value = today.toLocaleDateString() + " " + today.toTimeString().slice(0,5);
+bc.onchange = (event) => {
+  event.target.value = event.target.value.substr(0, 16);
+};
+</script>
+{% endblock %}   

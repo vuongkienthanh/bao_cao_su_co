@@ -133,3 +133,8 @@ dmypy.json
 *.dbbk
 tai_lieu/
 tai_lieu
+data
+data/
+docker run.text
+env
+*.env

@@ -158,6 +158,10 @@ main .submit {
   justify-content: center;
 }
 
+textarea {
+  white-space: pre-wrap;
+}
+
 footer {
   font-family: 'Bitter', sans-serif;
 }

@@ -1,13 +1,13 @@
-<form class="col-md-8 col-lg-6 col-11" action="./create_quick_report" method='post' id="tabcontent1" enctype="multipart/form-data">
+<form class="col-md-8 col-lg-6 col-11" action="./create_report" method='post' id="tabcontent1" enctype="multipart/form-data" autocomplete='off'>
   <div class="container-fluid">
 
     <div class="row my-3 align-items-center">
-      <label class="col-md-4 col-12" for="ngay_gio_bao_cao1">Ngày giờ báo cáo</label>
-      <input class="col form-control" type="datetime-local" id="ngay_gio_bao_cao1" name="ngay_gio_bao_cao1" placeholder="YYYY-MM-DD HH:MM" required>
+      <label class="col-md-4 col-12" for="ngay_gio_bao_cao">Ngày giờ báo cáo</label>
+      <input class="col form-control" type="datetime-local" id="ngay_gio_bao_cao1" name="ngay_gio_bao_cao" placeholder="YYYY-MM-DD HH:MM" required>
     </div>
     <div class="row mb-3 align-items-center">
-      <label class="col-md-4 col-12" for="doi_tuong1">Đối Tượng Xảy Ra Sự Cố</label>
-      <select class="col form-select" name="doi_tuong1" id="doi_tuong1" required>
+      <label class="col-md-4 col-12" for="doi_tuong">Đối Tượng Xảy Ra Sự Cố</label>
+      <select class="col form-select" name="doi_tuong" id="doi_tuong1" required>
         <option value="" disabled selected hidden>Chọn...</option>
         <option value="Người bệnh">Người bệnh</option>
         <option value="Người nhà hoặc khách đến thăm">Người nhà/khách đến thăm</option>
@@ -17,8 +17,8 @@
     </div>
       
     <div class="row mb-3 align-items-center">
-      <label class="col-md-4 col-12" for="vi_tri_xay_ra1">Nơi xảy ra sự cố</label>
-      <select class="col form-select" name="vi_tri_xay_ra1" id="vi_tri_xay_ra1" required>
+      <label class="col-md-4 col-12" for="vi_tri_xay_ra">Nơi xảy ra sự cố</label>
+      <select class="col form-select" name="vi_tri_xay_ra" id="vi_tri_xay_ra1" required>
           <option value="" disabled selected hidden>Chọn...</option>
           <option value="Ngoại thần kinh">Ngoại thần kinh</option>
           <option value="Nội tổng quát">Nội tổng quát</option>
@@ -45,7 +45,7 @@
         <label class="col">Sự cố liên quan đến các vấn đề</label>
     </div>
     <div class="row mb-3 align-items-center">
-      <select class="col form-select" name="su_co_lien_quan1" id="su_co_lien_quan1" required>
+      <select class="col form-select" name="su_co_lien_quan" id="su_co_lien_quan" required>
           <option value="" disabled selected hidden>Chọn...</option>
           <option value="Nhầm lẫn thông tin bệnh nhân">Nhầm lẫn thông tin bệnh nhân</option>
           <option value="Truyền nhầm máu và các chế phẩm máu">Truyền nhầm máu và các chế phẩm máu</option>
@@ -68,24 +68,28 @@
         <label class="col">Mô tả sự cố ngắn gọn</label>
       </div>
       <div class="row mb-3 align-items-center">
-        <textarea class="form-control mb-3" name="su_co_lien_quan_khac" id="su_co_lien_quan_khac" rows=5></textarea>
+        <textarea class="form-control mb-3" name="mo_ta" id="mo_ta" rows=5></textarea>
       </div>
     </div>
     <div class="row mb-3 align-items-center">
-      <label class="col-md-4 col-12" for="so_benh_an1">Số bệnh án</label>
-      <input class="col form-control" type="text" name="so_benh_an1" id="so_benh_an1" placeholder="nếu có">
+      <label class="col-md-4 col-12" for="so_benh_an">Số bệnh án</label>
+      <input class="col form-control" type="text" name="so_benh_an" id="so_benh_an1" placeholder="nếu có">
     </div>
-    <div class="row align-items-center" for="xu_ly_ban_dau1">
+    <div class="row align-items-center" for="xu_ly_ban_dau">
         <label class="col">Xử lý ban đầu</label>
     </div>
     <div class="row mb-3 align-items-center">
-      <textarea class="form-control mb-3" name="xu_ly_ban_dau1" id="xu_ly_ban_dau1" rows=5></textarea>
+      <textarea class="form-control mb-3" name="xu_ly_ban_dau" id="xu_ly_ban_dau1" rows=5></textarea>
     </div>
     <div class="row mb-3 align-items-center">
-        <label class="col" for="gui_tai_lieu" >Quý anh (chị) có thể gửi tài liệu bằng video, hình ảnh, đoạn ghi âm,.. tại đây</label>
+      <label class="col-md-4 col-12" for="ho_ten_nguoi_bao_cao">Thông tin liên hệ: (số điên thoại, email,..)</label>
+      <input class="col form-control" type="text" name="ho_ten_nguoi_bao_cao" id="ho_ten_nguoi_bao_cao1" required="">
     </div>
     <div class="row mb-3 align-items-center">
-      <input class="form-control" type="file" id="gui_tai_lieu" name="gui_tai_lieu" multiple>
+        <label class="col" for="filepaths" >Quý anh (chị) có thể gửi tài liệu bằng video, hình ảnh, đoạn ghi âm,.. tại đây</label>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <input class="form-control" type="file" id="filepaths" name="filepaths" multiple>
     </div>
     <div class="row justify-content-center" >
       <div class="col-6 mb-3 text-center" >
