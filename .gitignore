@@ -135,6 +135,7 @@ tai_lieu/
 tai_lieu
 data
 data/
-docker run.text
+docker run.txt
 env
 *.env
+!example.env

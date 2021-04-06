@@ -1,7 +1,7 @@
 # from schema import *
 from init import *
 from my_classes import MyResponse
-from create_pdf import create_pdf
+import create_report_pdf
 import create_thptsc_word
 import sql
 import my_email
@@ -335,7 +335,7 @@ async def get_report_pdf(
         "nguoi_chung_kien_1": nguoi_chung_kien_1,
         "nguoi_chung_kien_2": nguoi_chung_kien_2}
     stream = io.BytesIO()
-    create_pdf(stream, **data)
+    create_report_pdf.create(stream, **data)
     stream.seek(0)
     response = StreamingResponse(stream, media_type="text/pdf")
     response.headers["Content-Disposition"] = f"attachment; filename=bao_cao_su_co_id_{id}.pdf"
@@ -824,3 +824,4 @@ async def delete_thptsc(id: int, username: str = Depends(super_authen)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="thptsc doesnt exist"
         )
+

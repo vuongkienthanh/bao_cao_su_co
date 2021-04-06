@@ -307,7 +307,7 @@ def d_footer(c):
     c.drawString(w * 0.8, h * 0.1, t)
 
 
-def create_pdf(stream, **kwarg):
+def create(stream, **kwarg):
     global ct_y
     if kwarg['id'] == -1:
         kwarg['id'] = ''
